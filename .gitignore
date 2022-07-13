@@ -1,3 +1,4 @@
+.tmp/
 .install
 .idea/sonarlint/*
 ### VisualStudioCode template
@@ -669,3 +670,4 @@ Temporary Items
 secring.*
 
 
+.vscode/*.log

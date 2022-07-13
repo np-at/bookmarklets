@@ -1,4 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var aria_api_1 = require("aria-api");
 var focusTrace = [];
+var ariaDebug = function (el) {
+    var role = (0, aria_api_1.getRole)(el);
+    var name = (0, aria_api_1.getName)(el);
+    var description = (0, aria_api_1.getDescription)(el);
+    console.log("\n        role: ".concat(role, "\n                name: ").concat(name, "\n        description: ").concat(description, "\n    "));
+};
 function addBoundingStyle() {
     var boundRule = "div.bounding-rect { pointer-events: none; border: 3px solid red; border-radius: 4px 4px 4px 4px; position: fixed; z-index: 10000;}";
     var sht = document.styleSheets[0];
@@ -18,7 +27,7 @@ function handleFocusChange(_event) {
     var rect = (_a = document.activeElement) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect();
     if (rect.top && rect.left)
         focusTrace.push([rect.left + (rect.width / 3) + document.scrollingElement.scrollLeft, rect.top + (rect.height / 3) + document.scrollingElement.scrollTop]);
-    console.log("focus array ", focusTrace);
+    console.log("asdf", document.activeElement);
     drawFocusTraceArrows();
 }
 function redrawSelectionBoxes(_event) {
@@ -39,6 +48,7 @@ function drawFocusBoxes() {
         return;
     }
     console.debug(selection);
+    ariaDebug(selection);
     var rect = selection.getBoundingClientRect();
     if (rect.width && rect.height) {
         var outline = document.createElement("div");
@@ -99,7 +109,6 @@ function createArrowSvg(c1, c2, svg) {
     }
 }
 function drawFocusTraceArrows() {
-    console.log("current array:", focusTrace);
     if (focusTrace.length < 2)
         return;
     var svg = document.getElementById('rootSvg');
@@ -108,6 +117,6 @@ function drawFocusTraceArrows() {
 var selectionChangeTimer = null;
 var redrawTimer = null;
 addBoundingStyle();
-window.addEventListener("focus", handleFocusChange, true);
-window.addEventListener("scroll", redrawSelectionBoxes, false);
-window.addEventListener("resize", redrawSelectionBoxes, false);
+window.addEventListener("focusin", handleFocusChange, { passive: false });
+window.addEventListener("scroll", redrawSelectionBoxes, { passive: false });
+window.addEventListener("resize", redrawSelectionBoxes, { passive: false });

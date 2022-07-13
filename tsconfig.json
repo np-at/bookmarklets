@@ -1,13 +1,24 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2017",
+    "target": "ES6",
     "sourceMap": false,
     "outDir": "./dist",
     "downlevelIteration": false,
-    "inlineSourceMap": true
+    "inlineSourceMap": true,
+
   },
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "ts-node": {
+    "compiler": "typescript",
+    "compilerOptions": {
+      "module": "CommonJS",
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "checkJs": false
+
+    }
+  }
 }

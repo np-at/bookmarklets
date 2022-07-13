@@ -1,8 +1,33 @@
+import {getDescription, getName, getRole} from "aria-api"
 const focusTrace: number[][] = [];
+// @ts-ignore
+const exports = {}
+const ariaDebug = (el: Element) => {
+    const role = getRole(el)
+    // const state = getState(el)
+    // const label = getLabel(el)
+    const name = getName(el)
+    // const value = getValue(el)
+    // const checked = getChecked(el)
+    // const selected = getSelected(el)
+    // const expanded = getExpanded(el)
+    // const describedby = getDescribedby(el)
+    // const controls = getControls(el)
+    const description = getDescription(el)
+    // const errormessage = getErrormessage(el)
+    // const invalid = getInvalid(el)
+    // const keyshortcuts = getKeyshortcuts(el)
+
+    console.log(`
+        role: ${role}
+                name: ${name}
+        description: ${description}
+    `)
+}
 
 function addBoundingStyle() {
     const boundRule = "div.bounding-rect { pointer-events: none; border: 3px solid red; border-radius: 4px 4px 4px 4px; position: fixed; z-index: 10000;}";
-    const sht = document.styleSheets[0];
+    const sht: CSSStyleSheet = document.styleSheets[0];
     try {
         sht.insertRule(boundRule, sht.cssRules.length);
     } catch {
@@ -18,7 +43,8 @@ function handleFocusChange(_event: FocusEvent) {
     const rect = document.activeElement?.getBoundingClientRect();
     if (rect.top && rect.left)
         focusTrace.push([rect.left + (rect.width / 3) + document.scrollingElement.scrollLeft, rect.top + (rect.height / 3) + document.scrollingElement.scrollTop]);
-    console.log("focus array ", focusTrace);
+    // console.log("focus array ", focusTrace);
+    console.log("asdf", document.activeElement)
     drawFocusTraceArrows();
 
 }
@@ -43,6 +69,7 @@ function drawFocusBoxes() {
         return;
     }
     console.debug(selection);
+    ariaDebug(selection);
     const rect = selection.getBoundingClientRect();
     if (rect.width && rect.height) {
         let outline = document.createElement("div");
@@ -72,9 +99,8 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
 
     const dX = c2[0] - c1[0];
     const dY = c2[1] - c1[1];
-    if ( isNaN(dX) || isNaN(dY)) return;
+    if (isNaN(dX) || isNaN(dY)) return;
     // create base svg element
-
 
 
     // Arrow tail
@@ -123,8 +149,7 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
         document.body.append(newSvg);
         console.log("line: ", newSvg);
 
-    }
-    else {
+    } else {
         svg.appendChild(triangle);
         svg.appendChild(line);
     }
@@ -135,10 +160,10 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
 }
 
 function drawFocusTraceArrows() {
-    console.log("current array:", focusTrace);
+    // console.log("current array:", focusTrace);
     if (focusTrace.length < 2) return;
     const svg = document.getElementById('rootSvg');
-    createArrowSvg(focusTrace[focusTrace.length-2], focusTrace[focusTrace.length-1], svg);
+    createArrowSvg(focusTrace[focusTrace.length - 2], focusTrace[focusTrace.length - 1], svg);
     // const r = document.querySelector('svg#rootFocusSvg');
     // for (let i = 1; i < focusTrace.length; i++) {
     //   createArrowSvg(focusTrace[i - 1], focusTrace[i], null);
@@ -148,6 +173,6 @@ function drawFocusTraceArrows() {
 let selectionChangeTimer: NodeJS.Timeout = null;
 let redrawTimer: NodeJS.Timeout = null;
 addBoundingStyle();
-window.addEventListener("focus", handleFocusChange, true);
-window.addEventListener("scroll", redrawSelectionBoxes, false);
-window.addEventListener("resize", redrawSelectionBoxes, false);
+window.addEventListener("focusin", handleFocusChange, {passive: false});
+window.addEventListener("scroll", redrawSelectionBoxes, {passive: false});
+window.addEventListener("resize", redrawSelectionBoxes, {passive: false});
