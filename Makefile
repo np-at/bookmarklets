@@ -6,6 +6,9 @@ MS=src/scripts/main.ts
 
 MKLETS = $(basename $(notdir $(wildcard src/marklets/*.ts)))
 
+dist:
+	mkdir -p $@
+
 help:
 	@echo $(MKLETS)
 
@@ -17,7 +20,7 @@ install: .tmp/.install | .tmp/
 
 bookmarklets: dist/$(MKLETS).js
 
-dist/$(MKLETS).js : $(addprefix dist/, %.js) : src/marklets/%.ts | $(MS) install
+dist/$(MKLETS).js : $(addprefix dist/, %.js) : src/marklets/%.ts | dist $(MS) install
 	@echo "Compiling $@"
 	$(NPX_PATH) ts-node --project tsconfig.json $(MS) $< $@
 
