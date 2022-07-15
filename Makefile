@@ -6,11 +6,13 @@ MS=src/scripts/main.ts
 
 MKLETS = $(basename $(notdir $(wildcard src/marklets/*.ts)))
 
-dist:
-	mkdir -p $@
 
 help:
 	@echo $(MKLETS)
+
+dist:
+	mkdir -p $@
+
 
 install: .tmp/.install | .tmp/
 
