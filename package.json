@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "touch .node_modules"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "aria-api": "^0.4.2",
-    "terser": "^5.14.2"
+    "terser": "^5.14.2",
+    "commander": "9.4.0"
   },
   "devDependencies": {
     "@puresamari/ts-bundler": "^0.3.5",
