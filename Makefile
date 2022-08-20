@@ -8,7 +8,7 @@ MKLETS = $(basename $(notdir $(wildcard src/marklets/*.ts)))
 
 
 help:
-	@echo $(MKLETS)
+	@echo run \`make bookmarklets\` to generate the bookmarklets js in dist/$(MKLETS).js
 
 dist:
 	mkdir -p $@
@@ -31,7 +31,7 @@ dist/$(MKLETS).js : $(addprefix dist/, %.js) : src/marklets/%.ts | dist $(MS) in
 
 clean:
 	@echo "Cleaning"
-	@rm -rf dist/*
-	@rm -rf .tmp/
+	rm -rf dist/*
+	rm -rf .tmp/
 
 .PHONY: clean bookmarklets help install test all
