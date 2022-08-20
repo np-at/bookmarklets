@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "touch .node_modules"
   },
   "keywords": [],
   "author": "",
@@ -11,6 +12,7 @@
   "dependencies": {
     "aria-api": "^0.4.2",
     "terser": "^5.14.2",
+    "commander": "9.4.0"
     "parcel": "^2.6.2"
   },
   "devDependencies": {
