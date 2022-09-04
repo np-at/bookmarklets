@@ -1,9 +1,7 @@
 import { argv } from "node:process";
-import * as ts from "typescript"
-import { WriteFileCallback } from "typescript";
 import { minify as terserMinify } from "terser";
 import * as fs from "fs/promises";
-import { TypescriptBundler } from "@puresamari/ts-bundler"
+import { TypescriptBundler } from "@puresamari/ts-bundler";
 
 import { Command } from "commander";
 const program = new Command();
@@ -11,11 +9,11 @@ program.version("0.0.1");
 //program.option("-d, --debug", "debug mode",undefined, false);
 program.option("-o, --output <file>", "output file");
 program.option("-i, --input <file>", "input file");
-program.option('--no-urlencode', 'disable urlencoding of outputted js');
-program.option('--no-minify', 'disable minification')
+program.option("--no-urlencode", "disable urlencoding of outputted js");
+program.option("--no-minify", "disable minification");
 
 program.parse(argv);
-const { output, input, urlencode, minify, debug } = program.opts()
+const { output, input, urlencode, minify } = program.opts();
 const inputFile = input;
 const outputFile = output;
 
@@ -23,9 +21,8 @@ const outputFile = output;
 
 //const ags = argv.slice(argv.indexOf(__filename) + 1);
 
-
 function cleanCode(c: string): string {
-    return c.trim()
+  return c.trim();
 }
 
 // async function compile(fileNames: string[], options: ts.CompilerOptions) {
@@ -61,7 +58,6 @@ function cleanCode(c: string): string {
 //             console.log(e);
 //         })
 
-
 //     }
 //     program.emit(undefined, cb)
 //     let emitResult = program.emit();
@@ -84,48 +80,51 @@ function cleanCode(c: string): string {
 
 const bundler = new TypescriptBundler(inputFile);
 
-
 (async () => {
-    const r = await bundler.bundle()
-    // console.log(r.output)
-    let codeOutput: string;
-    if (minify) {
-        const minified = await terserMinify(r.output, {
-            compress: {
-                keep_fnames: false,
-                // keep_fargs: false,
-                keep_classnames: false,
-                passes: 3,
-                booleans_as_integers: true,
-                drop_console: false,
-                toplevel: true,
-            },
-            mangle: {
-                keep_fnames: false,
-                toplevel: true,
-                keep_classnames: false,
-                properties: false
-            },
-            // toplevel: true,
-            sourceMap: false,
-            keep_fnames: false,
-            keep_classnames: false,
+  const r = await bundler.bundle();
+  // console.log(r.output)
+  let codeOutput: string;
+  if (minify) {
+    const minified = await terserMinify(r.output, {
+      compress: {
+        keep_fnames: false,
+        // keep_fargs: false,
+        keep_classnames: false,
+        passes: 3,
+        booleans_as_integers: true,
+        drop_console: false,
+        toplevel: true,
+      },
+      mangle: {
+        keep_fnames: false,
+        toplevel: true,
+        keep_classnames: false,
+        properties: false,
+      },
+      // toplevel: true,
+      sourceMap: false,
+      keep_fnames: false,
+      keep_classnames: false,
+    });
+    codeOutput = minified.code;
+  } else {
+    codeOutput = r.output;
+  }
 
-        })
-        codeOutput = minified.code
-    } else {
-        codeOutput = r.output
-    }
-
-
-    codeOutput && await fs.writeFile(outputFile, urlencode ? formatAsBookmarklet(codeOutput) : codeOutput)
-
-})().then(value => {
+  codeOutput &&
+    (await fs.writeFile(
+      outputFile,
+      urlencode ? formatAsBookmarklet(codeOutput) : codeOutput
+    ));
+})().then(
+  (_) => {
     // console.log(formatAsBookmarklet(value))
     // console.log(value)
-}, rej => {
-    console.warn("rejected: ", rej)
-})
+  },
+  (rej) => {
+    console.warn("rejected: ", rej);
+  }
+);
 // compile([ags[0]], {
 //     noEmitOnError: true,
 //     noImplicitAny: false,
@@ -147,4 +146,7 @@ const bundler = new TypescriptBundler(inputFile);
 //     isolatedModules: false,
 // });
 
-const formatAsBookmarklet: (code: string) => string = (code: string) => "javascript:" + encodeURIComponent("(function(){" + cleanCode(code)) + "})();";
+const formatAsBookmarklet: (code: string) => string = (code: string) =>
+  "javascript:" +
+  encodeURIComponent("(function(){" + cleanCode(code)) +
+  "})();";

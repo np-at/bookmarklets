@@ -5,12 +5,9 @@
     "sourceMap": false,
     "outDir": "./dist",
     "downlevelIteration": false,
-    "inlineSourceMap": true,
-
+    "inlineSourceMap": true
   },
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "ts-node": {
     "compiler": "typescript",
     "compilerOptions": {
@@ -18,7 +15,6 @@
       "allowJs": true,
       "allowSyntheticDefaultImports": true,
       "checkJs": false
-
     }
   }
 }
