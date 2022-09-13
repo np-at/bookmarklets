@@ -15,9 +15,9 @@ dist .tmp:
 	mkdir -p $@
 
 
-install: .tmp/.install | .tmp/
+install: .tmp/.install | .tmp
 
-.tmp/.install: package-lock.json package.json | .tmp/
+.tmp/.install: package-lock.json package.json | .tmp
 	"$(NPM_PATH)" install
 	@touch .tmp/.install
 
@@ -26,9 +26,6 @@ bookmarklets: $(COMPILED_MARKLETS)
 $(COMPILED_MARKLETS) : dist/%.js : src/marklets/%.ts # | dist $(MS) install
 	@echo "Compiling $@"
 	"$(NPX_PATH)" ts-node --project tsconfig.json "$(MS)" --input $< --output $@
-
-.tmp/:
-	@mkdir -p .tmp
 
 clean:
 	@echo "Cleaning"
