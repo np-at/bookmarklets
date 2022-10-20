@@ -23,7 +23,7 @@ install: .tmp/.install | .tmp
 
 bookmarklets: $(COMPILED_MARKLETS)
 
-$(COMPILED_MARKLETS) : dist/%.js : src/marklets/%.ts # | dist $(MS) install
+$(COMPILED_MARKLETS) : dist/%.js : src/marklets/%.ts  | dist # $(MS) install
 	@echo "Compiling $@"
 	"$(NPX_PATH)" ts-node --project tsconfig.json "$(MS)" --input $< --output $@
 
