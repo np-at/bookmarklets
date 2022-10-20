@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { join } from "path";
 
-import "./style.css";
+// import "./style.css";
 
 const fcs = fs.readFileSync(join(__dirname, "../../dist", "fcs.js"), "utf-8");
 const ForceFocusOutline = fs.readFileSync(

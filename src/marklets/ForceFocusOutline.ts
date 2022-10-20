@@ -31,11 +31,7 @@ function ForceFocusOutline() {
   } else {
     const s = d.createElement("style");
     s.id = id;
-    s.appendChild(
-      d.createTextNode(
-        ":focus{outline:5px solid #F07 !important;z-index:10000 !important;}"
-      )
-    );
+    s.innerText =":focus{outline:5px solid #F07 !important;z-index:10000 !important;}";
 
     function applyToShadows(root) {
       for (var el of root.querySelectorAll("*")) {

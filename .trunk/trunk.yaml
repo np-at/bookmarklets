@@ -13,6 +13,8 @@ lint:
     - prettier@2.7.1
 actions:
   enabled:
+    - trunk-upgrade
+    - trunk-check-upgrade
     - trunk-upgrade-available
 runtimes:
   enabled:

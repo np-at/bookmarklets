@@ -33,11 +33,7 @@ function TextSpacing() {
   } else {
     let s = d.createElement("style");
     s.id = id;
-    s.appendChild(
-      d.createTextNode(
-        "*{line-height:1.5 !important;letter-spacing:0.12em !important;word-spacing:0.16em !important;}p{margin-bottom:2em !important;}"
-      )
-    );
+    s.innerText = "*{line-height:1.5 !important;letter-spacing:0.12em !important;word-spacing:0.16em !important;}p{margin-bottom:2em !important;}";
 
     function applyToShadows(root) {
       for (const el of root.querySelectorAll("*")) {

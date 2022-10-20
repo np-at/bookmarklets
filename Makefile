@@ -1,4 +1,7 @@
 
+NPROCS = $(shell sysctl hw.ncpu 2>/dev/null | grep -o '[0-9]\+' || echo "1")
+MAKEFLAGS += -j$(NPROCS)
+
 CWD:=$(shell /bin/pwd)
 NPM_PATH:=$(shell command -v npm || echo "npm")
 NPX_PATH:=$(shell command -v npx || echo "npx")
