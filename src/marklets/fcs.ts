@@ -130,7 +130,7 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
   triangle.setAttribute("points", `${c2[0]},${c2[1]} ${x3},${y3} ${x4},${y4}`);
   triangle.setAttribute("fillcolor", "blue");
   if (svg == null) {
-    let newSvg;
+    let newSvg: SVGElement;
     newSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     newSvg.setAttribute("version", "1.1");
     newSvg.setAttribute("aria-hidden", "true");
