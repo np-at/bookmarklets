@@ -113,7 +113,7 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
 
   // Arrowhead
   const angleOffset = Math.PI / 6;
-  const triSideLength = Math.sqrt(dX * dX + dY * dY) / 10;
+  const triSideLength = Math.max(Math.min(Math.sqrt(dX * dX + dY * dY) / 10, 50), 20);
   // console.log("trisidelength: ", triSideLength);
   const angle = Math.atan(dY / dX) + (Math.sign(dX) === -1 ? 0 : -1 * Math.PI);
   // console.log("angle: ", angle * 180 / Math.PI / 2);
@@ -142,6 +142,7 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
     newSvg.style.left = String(0);
     newSvg.style.width = "100%";
     newSvg.style.height = `100%`;
+    newSvg.style.zIndex = "10000";
     // svg.style.top = `${Math.min(c1[1], c2[1])}`;
     // svg.style.left = `${Math.min(c1[0], c2[0])}`;
     newSvg.style.overflow = "overlay";
