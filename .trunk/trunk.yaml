@@ -2,14 +2,14 @@ version: 0.1
 plugins:
   sources:
     - id: trunk
-      ref: v0.0.3
+      ref: v0.0.5
       uri: https://github.com/trunk-io/plugins
 cli:
   version: 1.0.0
 lint:
   enabled:
     - git-diff-check@SYSTEM
-    - gitleaks@8.11.2
+    - gitleaks@8.15.0
     - prettier@2.7.1
 actions:
   enabled:
