@@ -6,7 +6,7 @@ import { TypescriptBundler } from "@puresamari/ts-bundler";
 import { Command } from "commander";
 const program = new Command();
 program.version("0.0.1");
-//program.option("-d, --debug", "debug mode",undefined, false);
+// program.option("-d, --debug", "debug mode",undefined, false);
 program.option("-o, --output <file>", "output file");
 program.option("-i, --input <file>", "input file");
 program.option("--no-urlencode", "disable urlencoding of outputted js");
@@ -17,13 +17,17 @@ const { output, input, urlencode, minify } = program.opts();
 const inputFile = input;
 const outputFile = output;
 
-//const debug = program.debug;
+// const debug = program.debug;
 
-//const ags = argv.slice(argv.indexOf(__filename) + 1);
+// const ags = argv.slice(argv.indexOf(__filename) + 1);
 
 function cleanCode(c: string): string {
   return c.trim();
 }
+const formatAsBookmarklet: (code: string) => string = (code: string) =>
+  "javascript:" +
+  encodeURIComponent("(function(){" + cleanCode(code)) +
+  "})();";
 
 // async function compile(fileNames: string[], options: ts.CompilerOptions) {
 //     let program = ts.createProgram(fileNames, options);
@@ -83,7 +87,7 @@ const bundler = new TypescriptBundler(inputFile);
 (async () => {
   const r = await bundler.bundle();
   // console.log(r.output)
-  let codeOutput: string;
+  let codeOutput: string | undefined;
   if (minify) {
     const minified = await terserMinify(r.output, {
       compress: {
@@ -146,7 +150,4 @@ const bundler = new TypescriptBundler(inputFile);
 //     isolatedModules: false,
 // });
 
-const formatAsBookmarklet: (code: string) => string = (code: string) =>
-  "javascript:" +
-  encodeURIComponent("(function(){" + cleanCode(code)) +
-  "})();";
+

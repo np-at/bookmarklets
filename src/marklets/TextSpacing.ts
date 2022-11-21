@@ -2,12 +2,12 @@
 
 exports = {};
 function TextSpacing() {
-  let d = document,
-    id = "phltsbkmklt",
-    el = d.getElementById(id),
-    f = d.querySelectorAll("iframe"),
-    i = 0,
-    l = f.length;
+  const d = document;
+  const id = "phltsbkmklt";
+  const el = d.getElementById(id);
+  const f = d.querySelectorAll("iframe");
+  let i = 0;
+  const l = f.length;
   if (el) {
     function removeFromShadows(root) {
       for (const el of root.querySelectorAll("*")) {
@@ -31,9 +31,10 @@ function TextSpacing() {
     }
     removeFromShadows(d);
   } else {
-    let s = d.createElement("style");
+    const s = d.createElement("style");
     s.id = id;
-    s.innerText = "*{line-height:1.5 !important;letter-spacing:0.12em !important;word-spacing:0.16em !important;}p{margin-bottom:2em !important;}";
+    s.innerText =
+      "*{line-height:1.5 !important;letter-spacing:0.12em !important;word-spacing:0.16em !important;}p{margin-bottom:2em !important;}";
 
     function applyToShadows(root) {
       for (const el of root.querySelectorAll("*")) {

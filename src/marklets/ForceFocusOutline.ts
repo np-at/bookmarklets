@@ -1,11 +1,11 @@
 exports = {};
 function ForceFocusOutline() {
-  let d = document,
-    id = "phlffobkmklt",
-    el = d.getElementById(id),
-    f = d.querySelectorAll("iframe"),
-    i = 0,
-    l = f.length;
+  const d = document;
+  const id = "phlffobkmklt";
+  const el = d.getElementById(id);
+  const f = d.querySelectorAll("iframe");
+  let i = 0;
+  const l = f.length;
   if (el) {
     function removeFromShadows(root) {
       for (const el of root.querySelectorAll("*")) {
@@ -31,10 +31,11 @@ function ForceFocusOutline() {
   } else {
     const s = d.createElement("style");
     s.id = id;
-    s.innerText =":focus{outline:5px solid #F07 !important;z-index:10000 !important;}";
+    s.innerText =
+      ":focus{outline:5px solid #F07 !important;z-index:10000 !important;}";
 
     function applyToShadows(root) {
-      for (var el of root.querySelectorAll("*")) {
+      for (const el of root.querySelectorAll("*")) {
         if (el.shadowRoot) {
           el.shadowRoot.appendChild(s.cloneNode(true));
           applyToShadows(el.shadowRoot);

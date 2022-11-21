@@ -20,19 +20,26 @@ dist .tmp:
 
 install: .tmp/.install | .tmp
 
-.tmp/.install: package-lock.json package.json | .tmp
+.tmp/.install .node_modules: package-lock.json package.json | .tmp
 	"$(NPM_PATH)" install
-	@touch .tmp/.install
+# @touch .tmp/.install
 
 bookmarklets: $(COMPILED_MARKLETS)
 
-$(COMPILED_MARKLETS) : dist/%.js : src/marklets/%.ts  | dist # $(MS) install
+$(COMPILED_MARKLETS) : dist/%.js : src/marklets/%.ts  | dist .node_modules # $(MS) install
 	@echo "Compiling $@"
-	"$(NPX_PATH)" ts-node --project tsconfig.json "$(MS)" --input $< --output $@
+	@"$(NPX_PATH)" ts-node --project tsconfig.json "$(MS)" --input $< --output $@
 
+serve: bookmarklets
+	"$(NPM_PATH)" run dev
 clean:
 	@echo "Cleaning"
 	rm -rf dist/*
 	rm -rf .tmp/
 
-.PHONY: clean bookmarklets help install test all
+clean-all: clean
+	rm -rf node_modules
+	rm -f .node_modules
+
+
+.PHONY: clean clean-all bookmarklets help install test all serve

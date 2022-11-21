@@ -1,11 +1,11 @@
-function mutationObserverCallback(mutations, _observer) {
+function mutationObserverCallback(mutations: any, _observer: any): void {
   console.log("mutations: ", mutations);
 }
 
-//const al_attr = 'data-arialive-mutatobs-set'
+// const al_attr = 'data-arialive-mutatobs-set'
 const monitoredNodes: Element[] = [];
 
-function MonitorAriaLive() {
+function MonitorAriaLive(): void {
   //    const body = document.querySelector('body')
   //    if (body.attributes.getNamedItem(al_attr)) {
   //        console.log("Aria live mutation observers already set")

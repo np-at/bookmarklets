@@ -31,7 +31,7 @@ function addBoundingStyle() {
   try {
     sht.insertRule(boundRule, sht.cssRules.length);
   } catch {
-    let styleSheet = document.createElement("style");
+    const styleSheet = document.createElement("style");
     styleSheet.innerText = boundRule.valueOf();
     document.head.appendChild(styleSheet);
   }
@@ -41,11 +41,12 @@ function handleFocusChange(_event: FocusEvent) {
   clearTimeout(selectionChangeTimer);
   selectionChangeTimer = setTimeout(drawFocusBoxes, 100);
   const rect = document.activeElement?.getBoundingClientRect();
-  if (rect.top && rect.left)
+  if (rect.top && rect.left) {
     focusTrace.push([
       rect.left + rect.width / 3 + document.scrollingElement.scrollLeft,
       rect.top + rect.height / 3 + document.scrollingElement.scrollTop,
     ]);
+  }
   // console.log("focus array ", focusTrace);
   console.log("asdf", document.activeElement);
   drawFocusTraceArrows();
@@ -76,7 +77,7 @@ function drawFocusBoxes() {
   ariaDebug(selection);
   const rect = selection.getBoundingClientRect();
   if (rect.width && rect.height) {
-    let outline = document.createElement("div");
+    const outline = document.createElement("div");
     outline.classList.add("bounding-rect");
     outline.style.top = rect.top + "px";
     outline.style.left = rect.left + "px";
@@ -103,7 +104,7 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
   // create base svg element
 
   // Arrow tail
-  let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
   line.setAttribute("x1", String(c1[0]));
   line.setAttribute("x2", String(c2[0]));
   line.setAttribute("y1", String(c1[1]));
@@ -113,7 +114,10 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
 
   // Arrowhead
   const angleOffset = Math.PI / 6;
-  const triSideLength = Math.max(Math.min(Math.sqrt(dX * dX + dY * dY) / 10, 50), 20);
+  const triSideLength = Math.max(
+    Math.min(Math.sqrt(dX * dX + dY * dY) / 10, 50),
+    20
+  );
   // console.log("trisidelength: ", triSideLength);
   const angle = Math.atan(dY / dX) + (Math.sign(dX) === -1 ? 0 : -1 * Math.PI);
   // console.log("angle: ", angle * 180 / Math.PI / 2);
@@ -123,7 +127,7 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
   const y4 = triSideLength * Math.sin(angle - angleOffset) + c2[1];
 
   // console.log("x3,y3", [x3, y3]);
-  let triangle = document.createElementNS(
+  const triangle = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "polygon"
   );
@@ -141,7 +145,7 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
     newSvg.style.top = String(0);
     newSvg.style.left = String(0);
     newSvg.style.width = "100%";
-    newSvg.style.height = `100%`;
+    newSvg.style.height = "100%";
     newSvg.style.zIndex = "10000";
     // svg.style.top = `${Math.min(c1[1], c2[1])}`;
     // svg.style.left = `${Math.min(c1[0], c2[0])}`;
