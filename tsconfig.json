@@ -15,7 +15,9 @@
       "module": "CommonJS",
       "allowJs": true,
       "allowSyntheticDefaultImports": true,
-      "checkJs": false
-    }
+      "checkJs": false,
+      "target": "ES6"
+    },
+
   }
 }

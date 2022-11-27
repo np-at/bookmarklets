@@ -22,8 +22,8 @@ function TextSpacing() {
     if (l) {
       for (i = 0; i < l; i++) {
         try {
-          f[i].contentWindow.document.getElementById(id).remove();
-          removeFromShadows(f[i].contentWindow.document);
+          f[i].contentWindow?.document.getElementById(id)?.remove();
+          removeFromShadows(f[i].contentWindow?.document);
         } catch (e) {
           console.log(e);
         }
