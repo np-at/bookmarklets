@@ -30,6 +30,8 @@ $(COMPILED_MARKLETS) : dist/%.js : src/marklets/%.ts  | dist .node_modules # $(M
 	@echo "Compiling $@"
 	@"$(NPX_PATH)" ts-node --project tsconfig.json "$(MS)" --input $< --output $@
 
+build: bookmarklets
+
 serve: bookmarklets
 	"$(NPM_PATH)" run dev
 clean:
@@ -42,4 +44,5 @@ clean-all: clean
 	rm -f .node_modules
 
 
-.PHONY: clean clean-all bookmarklets help install test all serve
+.PHONY: clean clean-all bookmarklets help install test all serve build
+

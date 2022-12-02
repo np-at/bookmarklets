@@ -20,8 +20,8 @@ function ForceFocusOutline() {
     if (l) {
       for (i = 0; i < l; i++) {
         try {
-          f[i].contentWindow.document.getElementById(id).remove();
-          removeFromShadows(f[i].contentWindow.document);
+          f[i].contentWindow?.document.getElementById(id)?.remove();
+          removeFromShadows(f[i].contentWindow?.document);
         } catch (e) {
           console.log(e);
         }
@@ -46,10 +46,10 @@ function ForceFocusOutline() {
     d.getElementsByTagName("head")[0].appendChild(s);
     for (i = 0; i < l; i++) {
       try {
-        f[i].contentWindow.document
+        f[i].contentWindow?.document
           .getElementsByTagName("head")[0]
           .appendChild(s.cloneNode(true));
-        applyToShadows(f[i].contentWindow.document);
+        applyToShadows(f[i].contentWindow?.document);
       } catch (e) {
         console.log(e);
       }
