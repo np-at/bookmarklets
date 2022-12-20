@@ -1,7 +1,7 @@
 import { getDescription, getName, getRole } from "aria-api";
 const focusTrace: number[][] = [];
 
-const ariaDebug = (el: Element) => {
+const ariaDebug: (el: Element) => void = (el: Element) => {
   const role = getRole(el);
   // const state = getState(el)
   // const label = getLabel(el)
@@ -24,7 +24,7 @@ const ariaDebug = (el: Element) => {
     `);
 };
 
-function addBoundingStyle() {
+function addBoundingStyle(): void {
   const boundRule =
     "div.bounding-rect { pointer-events: none; border: 3px solid red; border-radius: 4px 4px 4px 4px; position: fixed; z-index: 10000;}";
   const sht: CSSStyleSheet = document.styleSheets[0];
@@ -37,14 +37,15 @@ function addBoundingStyle() {
   }
 }
 
-function handleFocusChange(_event: FocusEvent) {
+function handleFocusChange(_event: FocusEvent): void {
   clearTimeout(selectionChangeTimer);
   selectionChangeTimer = setTimeout(drawFocusBoxes, 100);
   const rect = document.activeElement?.getBoundingClientRect();
+  if (!rect) throw new Error("Rect not defined");
   if (rect.top && rect.left) {
     focusTrace.push([
-      rect.left + rect.width / 3 + document.scrollingElement.scrollLeft,
-      rect.top + rect.height / 3 + document.scrollingElement.scrollTop,
+      rect.left + rect.width / 3 + (document.scrollingElement?.scrollLeft ?? 0),
+      rect.top + rect.height / 3 + (document.scrollingElement?.scrollTop ?? 0),
     ]);
   }
   // console.log("focus array ", focusTrace);
@@ -52,21 +53,21 @@ function handleFocusChange(_event: FocusEvent) {
   drawFocusTraceArrows();
 }
 
-function redrawSelectionBoxes(_event: FocusEvent) {
+function redrawSelectionBoxes(_event: FocusEvent): void {
   clearTimeout(redrawTimer);
   redrawTimer = setTimeout(drawFocusBoxes, 300);
 }
 
-function clearCurrentSelectionBoxes() {
+function clearCurrentSelectionBoxes(): void {
   const nodes = document.querySelectorAll(
     "div.bounding-rect, div.segment-rect"
   );
   for (let i = 0; i < nodes.length; i++) {
-    nodes[i].parentNode.removeChild(nodes[i]);
+    nodes[i].parentNode?.removeChild(nodes[i]);
   }
 }
 
-function drawFocusBoxes() {
+function drawFocusBoxes(): void {
   clearCurrentSelectionBoxes();
   clearArrowSvgs();
   const selection = document.activeElement;
@@ -79,10 +80,10 @@ function drawFocusBoxes() {
   if (rect.width && rect.height) {
     const outline = document.createElement("div");
     outline.classList.add("bounding-rect");
-    outline.style.top = rect.top + "px";
-    outline.style.left = rect.left + "px";
-    outline.style.width = rect.width + "px";
-    outline.style.height = rect.height + "px";
+    outline.style.top = rect.top.toString(10) + "px";
+    outline.style.left = rect.left.toString(10) + "px";
+    outline.style.width = rect.width.toString(10) + "px";
+    outline.style.height = rect.height.toString(10) + "px";
     document.body.appendChild(outline);
   }
   // if (rect.top && rect.left)
@@ -91,13 +92,17 @@ function drawFocusBoxes() {
   // drawFocusTraceArrows();
 }
 
-function clearArrowSvgs() {
+function clearArrowSvgs(): void {
   // const r = document.querySelectorAll("svg.rootFocusSvg");
   // if (r)
   //   r.forEach(x => x.remove());
 }
 
-function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
+function createArrowSvg(
+  c1: number[],
+  c2: number[],
+  svg: HTMLElement | null
+): void {
   const dX = c2[0] - c1[0];
   const dY = c2[1] - c1[1];
   if (isNaN(dX) || isNaN(dY)) return;
@@ -134,8 +139,10 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
   triangle.setAttribute("points", `${c2[0]},${c2[1]} ${x3},${y3} ${x4},${y4}`);
   triangle.setAttribute("fillcolor", "blue");
   if (svg == null) {
-    let newSvg: SVGElement;
-    newSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const newSvg: SVGElement = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
     newSvg.setAttribute("version", "1.1");
     newSvg.setAttribute("aria-hidden", "true");
     // svg.classList.add("rootFocusSvg");
@@ -162,7 +169,7 @@ function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement = null) {
   // Add completed svg to page
 }
 
-function drawFocusTraceArrows() {
+function drawFocusTraceArrows(): void {
   // console.log("current array:", focusTrace);
   if (focusTrace.length < 2) return;
   const svg = document.getElementById("rootSvg");
@@ -177,8 +184,8 @@ function drawFocusTraceArrows() {
   // }
 }
 
-let selectionChangeTimer: NodeJS.Timeout = null;
-let redrawTimer: NodeJS.Timeout = null;
+let selectionChangeTimer: NodeJS.Timeout;
+let redrawTimer: NodeJS.Timeout;
 addBoundingStyle();
 window.addEventListener("focusin", handleFocusChange, { passive: false });
 window.addEventListener("scroll", redrawSelectionBoxes, { passive: false });

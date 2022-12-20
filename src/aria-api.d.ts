@@ -1,8 +1,8 @@
 declare module "aria-api" {
-  export const getRole: any;
-  export const getAttribute: any;
-  export const getName: any;
-  export const getDescription: any;
+  export const getRole: (el: Element) => string;
+  export const getAttribute: (el: Element) => string;
+  export const getName: (el: Element) => string;
+  export const getDescription: (el: Element) => string;
   export const matches: any;
   export const querySelector: any;
   export const querySelectorAll: any;
