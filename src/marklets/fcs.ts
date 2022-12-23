@@ -1,4 +1,5 @@
 import { getDescription, getName, getRole } from "aria-api";
+
 const focusTrace: number[][] = [];
 
 const ariaDebug: (el: Element) => void = (el: Element) => {

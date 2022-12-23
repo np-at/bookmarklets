@@ -20,6 +20,7 @@
   "devDependencies": {
     "@parcel/transformer-inline-string": "^2.8.2",
     "@puresamari/ts-bundler": "^0.3.5",
+    "@trunkio/launcher": "^1.2.3",
     "@types/node": "^18.11.17",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "eslint": "^8.30.0",
