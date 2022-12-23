@@ -66,6 +66,7 @@ collapseButton.style.top = "0";
 collapseButton.style.left = "0";
 collapseButton.style.zIndex = "1000";
 collapseButton.style.pointerEvents = "all";
+collapseButton.ariaExpanded = "true";
 collapseButton.addEventListener("click", () => {
   resultsContainer.style.display = "none";
   const oldariaExpanded = resultsContainer.getAttribute("aria-expanded");
