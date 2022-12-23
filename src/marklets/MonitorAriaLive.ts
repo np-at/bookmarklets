@@ -166,7 +166,7 @@ function ping(x: number, y: number): void {
   document.body.appendChild(pingAnimation);
   setTimeout(() => {
     pingAnimation.remove();
-  }, 4000);
+  }, 2100);
 }
 
 const displaytemplate = (mutation: MutationRecord): string => {
