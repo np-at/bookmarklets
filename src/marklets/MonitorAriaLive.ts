@@ -38,6 +38,48 @@ style {
   padding-top: 1rem;
   padding-bottom: 0.5rem;
 }
+
+/* Circle */
+.circle {
+  pointer-events: none;
+  height: 100vh;
+  width: 100vw;
+  border-radius: 50%;
+  /*    */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.circle:before,
+.circle:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 1px solid #ff4343;
+  border-radius: 50%;
+}
+
+
+.circle:before {
+  animation: ripple 2s linear;
+}
+
+.circle:after {
+  animation: ripple 2s linear 1s;
+}
+
+@keyframes ripple{
+  0% { transform: scale(0.1); }
+  50% { transform: scale(0.7); opacity:1; }
+  100% { transform: scale(1.6); opacity:0.4; }
+}
 `;
 styleContainer.innerHTML = styles;
 // document.head.appendChild(styleContainer);
@@ -70,7 +112,7 @@ collapseButton.ariaExpanded = "true";
 collapseButton.addEventListener("click", () => {
   resultsContainer.style.display = "none";
   const oldariaExpanded = resultsContainer.getAttribute("aria-expanded");
-  const newAriaExpanded = oldariaExpanded === "true" ? "false" : "true";
+  const newAriaExpanded = oldariaExpanded === "false" ? "true" : "false";
   resultsContainer.setAttribute("aria-expanded", newAriaExpanded);
 
   resultsContainer.style.display = `${
@@ -106,6 +148,26 @@ function closeOnEscape(e: KeyboardEvent): void {
 document.addEventListener("keyup", closeOnEscape, { once: false });
 displayContainer.appendChild(closeButton);
 document.body.appendChild(displayContainer);
+
+// const pingAnimation = document.createElement("div");
+// pingAnimation.classList.add("circle");
+// pingAnimation.style.zIndex = "1000";
+// pingAnimation.style.pointerEvents = "none";
+// pingAnimation.style.top = "50vh";
+// pingAnimation.style.left = '50vw';
+
+// document.body.appendChild(pingAnimation);
+function ping(x: number, y: number): void {
+  const pingAnimation = document.createElement("div");
+  pingAnimation.classList.add("circle");
+  pingAnimation.style.top = `${y}px`;
+  pingAnimation.style.left = `${x}px`;
+  pingAnimation.style.display = "block";
+  document.body.appendChild(pingAnimation);
+  setTimeout(() => {
+    pingAnimation.remove();
+  }, 4000);
+}
 
 const displaytemplate = (mutation: MutationRecord): string => {
   const target = mutation.target as HTMLElement;
@@ -147,6 +209,10 @@ const displaytemplate = (mutation: MutationRecord): string => {
 };
 
 function drawHighlightOverlay(element: HTMLElement): void {
+  ping(
+    element.offsetLeft + element.offsetWidth / 2,
+    element.offsetTop + element.offsetHeight / 2
+  );
   const overlay = document.createElement("div");
   overlay.setAttribute("aria-hidden", "true");
   overlay.setAttribute("data-aria-live-monitor", "true");
