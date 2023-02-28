@@ -6,7 +6,9 @@
     "outDir": "./dist",
     "downlevelIteration": false,
     "inlineSourceMap": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": ["node_modules"],
   "ts-node": {
@@ -17,7 +19,6 @@
       "allowSyntheticDefaultImports": true,
       "checkJs": false,
       "target": "ES6"
-    },
-
+    }
   }
 }

@@ -4,6 +4,7 @@ import * as fs from "fs/promises";
 import { TypescriptBundler } from "@puresamari/ts-bundler";
 
 import { Command } from "commander";
+
 const program = new Command();
 program.version("0.0.1");
 // program.option("-d, --debug", "debug mode",undefined, false);
@@ -149,5 +150,3 @@ const bundler = new TypescriptBundler(inputFile);
 //     sourceMap: false,
 //     isolatedModules: false,
 // });
-
-

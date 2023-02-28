@@ -54,7 +54,7 @@ function handleFocusChange(_event: FocusEvent): void {
   drawFocusTraceArrows();
 }
 
-function redrawSelectionBoxes(_event: FocusEvent): void {
+function redrawSelectionBoxes(_event: Event | FocusEvent): void {
   clearTimeout(redrawTimer);
   redrawTimer = setTimeout(drawFocusBoxes, 300);
 }
