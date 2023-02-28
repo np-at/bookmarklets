@@ -24,8 +24,12 @@ const FindDuplicateIds = fs.readFileSync(
   join(__dirname, "../../dist", "FindDuplicateIds.js"),
   "utf-8"
 );
+const HoverTest = fs.readFileSync(
+  join(__dirname, "../../dist", "HoverTest.js"),
+  "utf-8"
+);
 const root = document.querySelector("#root") as HTMLDivElement;
-const makeLink = (x, name: string) => {
+const makeLink = (x: string, name: string): void => {
   const anchorElement = document.createElement("a");
   anchorElement.href = x;
   anchorElement.innerText = name;
@@ -38,9 +42,10 @@ makeLink(TextSpacing, "TextSpacing");
 makeLink(AriaLiveObserver, "AriaLiveObserver");
 makeLink(ShowHeadings, "ShowHeadings");
 makeLink(FindDuplicateIds, "FindDuplicateIds");
+makeLink(HoverTest, "HoverTest");
 
 // random text generator
-function generateRandomText() {
+function generateRandomText(): string {
   const randomText: string[] = [];
   const randomLength = Math.floor(Math.random() * 10) + 1;
   for (let i = 0; i < randomLength; i++) {
@@ -48,15 +53,17 @@ function generateRandomText() {
   }
   return randomText.join(" ");
 }
+//
+// setInterval(() => {
+//   try {
+//     (
+//       document.getElementById("live-region") as HTMLSpanElement
+//     ).innerText = `poop ${generateRandomText()}`;
+//   } catch (e) {
+//     console.error(e);
+//     clearInterval(this);
+//   }
+// }, 6000);
 
-setInterval(() => {
-  try {
-    (
-      document.getElementById("live-region") as HTMLSpanElement
-    ).innerText = `poop ${generateRandomText()}`;
-  } catch (e) {
-    console.error(e);
-    clearInterval(this);
-  }
-}, 6000);
+// TODO: finish this
 document.getElementById("live-region") as HTMLSpanElement;

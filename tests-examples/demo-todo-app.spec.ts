@@ -1,4 +1,10 @@
-import {type ElementHandle, expect, type JSHandle, type Page, test} from "@playwright/test";
+import {
+  type ElementHandle,
+  expect,
+  type JSHandle,
+  type Page,
+  test,
+} from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("https://demo.playwright.dev/todomvc");
@@ -461,7 +467,10 @@ async function createDefaultTodos(page: Page): Promise<void> {
   }
 }
 
-async function checkNumberOfTodosInLocalStorage(page: Page, expected: number): Promise<JSHandle<boolean>> {
+async function checkNumberOfTodosInLocalStorage(
+  page: Page,
+  expected: number
+): Promise<JSHandle<boolean>> {
   return await page.waitForFunction((e) => {
     return JSON.parse(localStorage["react-todos"]).length === e;
   }, expected);
@@ -480,7 +489,10 @@ async function checkNumberOfCompletedTodosInLocalStorage(
   }, expected);
 }
 
-async function checkTodosInLocalStorage(page: Page, title: string): Promise<ElementHandle|JSHandle<unknown>> {
+async function checkTodosInLocalStorage(
+  page: Page,
+  title: string
+): Promise<ElementHandle | JSHandle<unknown>> {
   return await page.waitForFunction((t) => {
     return JSON.parse(localStorage["react-todos"])
       .map((todo: any) => todo.title)

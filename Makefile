@@ -9,6 +9,7 @@ MS=src/scripts/main.ts
 
 BOOKMARKLETS = $(basename $(notdir $(wildcard src/marklets/*.ts)))
 COMPILED_MARKLETS := $(addprefix dist/, $(addsuffix .js,$(BOOKMARKLETS)))
+UTIL_FILES := $(wildcard src/utils/*.ts)
 
 help:
 	@echo $(BOOKMARKLETS)
@@ -25,10 +26,14 @@ install: .tmp/.install | .tmp
 	touch .tmp/.install
 
 bookmarklets: $(COMPILED_MARKLETS)
+	@echo "$(UTIL_FILES)"
 
 $(COMPILED_MARKLETS) : dist/%.js : src/marklets/%.ts  | dist .node_modules .tmp/.install # $(MS) install
 	@echo "Compiling $@"
 	@"$(NPX_PATH)" ts-node --project tsconfig.json "$(MS)" --input $< --output $@
+
+$(COMPILED_MARKLETS): $(UTIL_FILES)
+
 
 build: bookmarklets
 

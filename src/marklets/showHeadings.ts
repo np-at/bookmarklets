@@ -167,9 +167,9 @@ function getOutline(): OutlineItem[] {
     const el = els[i] as HTMLElement;
     const visible = isVisible(els[i]);
     const n = parseInt(
-      (el.getAttribute("role") === "heading" ?
-        el.getAttribute("aria-level") :
-        el.nodeName.substring(1)) ?? "-1",
+      (el.getAttribute("role") === "heading"
+        ? el.getAttribute("aria-level")
+        : el.nodeName.substring(1)) ?? "-1"
     );
     if (visible) {
       wrongLevel = n > previousLevel && n !== previousLevel + 1;
