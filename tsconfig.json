@@ -10,6 +10,9 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true
   },
+  "typeAcquisition": {
+    "enable": true
+  },
   "exclude": ["node_modules"],
   "ts-node": {
     "compiler": "typescript",

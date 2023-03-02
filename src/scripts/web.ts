@@ -28,6 +28,11 @@ const HoverTest = fs.readFileSync(
   join(__dirname, "../../dist", "HoverTest.js"),
   "utf-8"
 );
+
+const IdentifyExplicitNames = fs.readFileSync(
+  join(__dirname, "../../dist", "IdentifyExplicitNames.js"),
+  "utf-8"
+);
 const root = document.querySelector("#root") as HTMLDivElement;
 const makeLink = (x: string, name: string): void => {
   const anchorElement = document.createElement("a");
@@ -43,6 +48,7 @@ makeLink(AriaLiveObserver, "AriaLiveObserver");
 makeLink(ShowHeadings, "ShowHeadings");
 makeLink(FindDuplicateIds, "FindDuplicateIds");
 makeLink(HoverTest, "HoverTest");
+makeLink(IdentifyExplicitNames, "IdentifyExplicitNames");
 
 // random text generator
 function generateRandomText(): string {
