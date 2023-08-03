@@ -1,4 +1,4 @@
-function applyToShadows(
+export function applyToShadows(
   root: Document | ShadowRoot | undefined,
   fn: (arg0: Document | ShadowRoot) => void
 ): void {
@@ -9,4 +9,3 @@ function applyToShadows(
     }
   }
 }
-export default applyToShadows;

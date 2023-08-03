@@ -6,5 +6,8 @@ function randomString(length: number): string {
     result += chars[Math.floor(Math.random() * chars.length)];
   return result;
 }
+function containsAny<T>(collection: T[], ...items: T[]): boolean {
+  return items.some((i) => collection.includes(i));
+}
 
-export { randomString };
+export { randomString, containsAny };

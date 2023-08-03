@@ -1,4 +1,4 @@
-import applyToShadows from "../utils/applyToShadows";
+import {applyToShadows} from "../utils/applyToShadows";
 
 // eslint-disable-next-line n/no-exports-assign
 exports = {};

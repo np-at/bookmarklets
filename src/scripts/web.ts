@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { join } from "path";
 
-// import "./style.css";
+import "./style.css";
 
 const fcs = fs.readFileSync(join(__dirname, "../../dist", "fcs.js"), "utf-8");
 const ForceFocusOutline = fs.readFileSync(
@@ -33,6 +33,14 @@ const IdentifyExplicitNames = fs.readFileSync(
   join(__dirname, "../../dist", "IdentifyExplicitNames.js"),
   "utf-8"
 );
+const ImageChecker = fs.readFileSync(
+    join(__dirname, "../../dist", "ImageCheck.js"),
+    "utf-8"
+);
+const Axify = fs.readFileSync(
+    join(__dirname, "../../dist", "Axify.js"),
+    "utf-8"
+);
 const root = document.querySelector("#root") as HTMLDivElement;
 const makeLink = (x: string, name: string): void => {
   const anchorElement = document.createElement("a");
@@ -41,7 +49,9 @@ const makeLink = (x: string, name: string): void => {
   root.appendChild(anchorElement);
 };
 
+
 makeLink(fcs, "fcs");
+makeLink(Axify, "Axify");
 makeLink(ForceFocusOutline, "ForceFocusOutline");
 makeLink(TextSpacing, "TextSpacing");
 makeLink(AriaLiveObserver, "AriaLiveObserver");
@@ -49,6 +59,7 @@ makeLink(ShowHeadings, "ShowHeadings");
 makeLink(FindDuplicateIds, "FindDuplicateIds");
 makeLink(HoverTest, "HoverTest");
 makeLink(IdentifyExplicitNames, "IdentifyExplicitNames");
+makeLink(ImageChecker, "ImageChecker");
 
 // random text generator
 function generateRandomText(): string {
