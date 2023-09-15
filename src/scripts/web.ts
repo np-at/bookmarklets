@@ -1,8 +1,8 @@
-import * as fs from "fs";
+import  fs from "fs";
 import { join } from "path";
 
 import "./style.css";
-
+console.log(join(__dirname, "../../dist", "fcs.js"));
 const fcs = fs.readFileSync(join(__dirname, "../../dist", "fcs.js"), "utf-8");
 const ForceFocusOutline = fs.readFileSync(
   join(__dirname, "../../dist", "ForceFocusOutline.js"),
@@ -41,6 +41,10 @@ const Axify = fs.readFileSync(
     join(__dirname, "../../dist", "Axify.js"),
     "utf-8"
 );
+const Pathify = fs.readFileSync(
+    join(__dirname, "../../dist", "Pathify.js"),
+    "utf-8"
+);
 const root = document.querySelector("#root") as HTMLDivElement;
 const makeLink = (x: string, name: string): void => {
   const anchorElement = document.createElement("a");
@@ -60,6 +64,7 @@ makeLink(FindDuplicateIds, "FindDuplicateIds");
 makeLink(HoverTest, "HoverTest");
 makeLink(IdentifyExplicitNames, "IdentifyExplicitNames");
 makeLink(ImageChecker, "ImageChecker");
+makeLink(Pathify, "Pathify")
 
 // random text generator
 function generateRandomText(): string {

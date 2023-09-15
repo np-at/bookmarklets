@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["es2015","dom"],
     "module": "commonjs",
     "target": "ES6",
     "sourceMap": false,
@@ -8,7 +9,8 @@
     "inlineSourceMap": true,
     "strictNullChecks": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true
   },
   "typeAcquisition": {
     "enable": true
