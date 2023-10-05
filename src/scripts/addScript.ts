@@ -7,18 +7,19 @@ import inquirer from "inquirer";
 const repoHome = path.resolve(path.join(__dirname, "..", ".."))
 const srcDir = path.join(repoHome, "src")
 const bookmarkletSrcDir = path.join(srcDir, "marklets")
-const scriptSrcDir = path.join(srcDir, "scripts")
-const distDir = path.join(repoHome, "dist")
-const webScript = path.join(scriptSrcDir, "web.ts")
+const scriptSrcDir = path.join(srcDir, "scripts");
+const distDir = path.join(repoHome, "dist");
+const webScript = path.join(scriptSrcDir, "web.ts");
 
-const newScriptTemplate =
+
     (async () => {
         const answer = await inquirer.prompt({
             name: "newScriptName",
             type: "input",
-            message: "What is the name of the script?"
+            message: "What is the name of the script?",
+
         })
-        const newScriptName = answer.newScriptName
+        const newScriptName = answer.newScriptName as string;
         if (!newScriptName?.trim()) {
             console.log("No name provided, exiting...")
             process.exit(1)
@@ -32,9 +33,9 @@ const newScriptTemplate =
         await writeFile(newScriptPath, newScript)
         console.log(`Created ${newScriptPath}`)
         const webScriptImportStmt = `const ${newScriptName.trim()} = fs.readFileSync(
-        join(__dirname, "../../dist", "${newScriptName.trim()}.js"),}}"),
+        join(__dirname, "../../dist", "${newScriptName.trim()}.js"),
         "utf-8"
-    )";\n`
+    )\n`
         const webScriptMakeLinkStmt = `makeLink(${newScriptName.trim()}, "${newScriptName.trim()}");\n`
 
         const webScriptContents = await readFile(webScript, {
@@ -46,6 +47,12 @@ const newScriptTemplate =
             encoding: "utf-8",
             flag: constants.O_TRUNC | constants.O_WRONLY
         })
+        console.log(`Updated ${webScript}`)
 
 
-    })()
+    })().then(() => {
+        console.log("Done!")
+    }).catch((e) => {
+        console.error(e)
+        process.exit(1)
+    })

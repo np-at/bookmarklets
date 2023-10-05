@@ -39,6 +39,11 @@ build: bookmarklets
 
 serve: bookmarklets
 	"$(NPM_PATH)" run dev
+
+new-bookmarklet: install
+	@echo "Creating new bookmarklet"
+	"$(NPX_PATH)" tsx src/scripts/addScript.ts
+
 clean:
 	@echo "Cleaning"
 	rm -rf dist/*
