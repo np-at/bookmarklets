@@ -3,6 +3,7 @@ import { join } from "path";
 
 import "./style.css";
 console.log(join(__dirname, "../../dist", "fcs.js"));
+// START: import scripts
 const fcs = fs.readFileSync(join(__dirname, "../../dist", "fcs.js"), "utf-8");
 const ForceFocusOutline = fs.readFileSync(
   join(__dirname, "../../dist", "ForceFocusOutline.js"),
@@ -45,6 +46,7 @@ const Pathify = fs.readFileSync(
     join(__dirname, "../../dist", "Pathify.js"),
     "utf-8"
 );
+// END: import scripts
 const root = document.querySelector("#root") as HTMLDivElement;
 const makeLink = (x: string, name: string): void => {
   const anchorElement = document.createElement("a");
@@ -53,7 +55,7 @@ const makeLink = (x: string, name: string): void => {
   root.appendChild(anchorElement);
 };
 
-
+// START: add links
 makeLink(fcs, "fcs");
 makeLink(Axify, "Axify");
 makeLink(ForceFocusOutline, "ForceFocusOutline");
@@ -65,6 +67,8 @@ makeLink(HoverTest, "HoverTest");
 makeLink(IdentifyExplicitNames, "IdentifyExplicitNames");
 makeLink(ImageChecker, "ImageChecker");
 makeLink(Pathify, "Pathify")
+
+// END: add links
 
 // random text generator
 function generateRandomText(): string {
