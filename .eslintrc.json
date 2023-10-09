@@ -8,9 +8,10 @@
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "project": ["tsconfig.json"]
+    "project": ["tsconfig.node.json", "tsconfig.web.json"]
   },
   "rules": {
+    "@typescript-eslint/naming-convention": "off",
     "no-var": "error",
     "prefer-const": "error",
     "@typescript-eslint/strict-boolean-expressions": "off",

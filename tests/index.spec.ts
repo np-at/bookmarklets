@@ -9,7 +9,7 @@ describe("test index.html",  () => {
         await page.goto("http://localhost:1234");
         await page.waitForSelector("a");
         const links = await page.$$("a");
-        expect(links.length).toBe(10);
+        expect(links.length).toBe(12);
     })
     test('all links have href', async ({page}) => {
         await page.goto("http://localhost:1234");

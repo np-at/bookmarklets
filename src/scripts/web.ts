@@ -4,6 +4,11 @@ import { join } from "path";
 import "./style.css";
 console.log(join(__dirname, "../../dist", "fcs.js"));
 // START: import scripts
+const ShowImageAlt = fs.readFileSync(
+        join(__dirname, "../../dist", "ShowImageAlt.js"),
+        "utf-8"
+    )
+
 const fcs = fs.readFileSync(join(__dirname, "../../dist", "fcs.js"), "utf-8");
 const ForceFocusOutline = fs.readFileSync(
   join(__dirname, "../../dist", "ForceFocusOutline.js"),
@@ -56,6 +61,8 @@ const makeLink = (x: string, name: string): void => {
 };
 
 // START: add links
+makeLink(ShowImageAlt, "ShowImageAlt");
+
 makeLink(fcs, "fcs");
 makeLink(Axify, "Axify");
 makeLink(ForceFocusOutline, "ForceFocusOutline");
