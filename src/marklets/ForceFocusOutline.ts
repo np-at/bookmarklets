@@ -11,14 +11,14 @@ function ForceFocusOutline(): void {
   let i = 0;
   const l = f.length;
   if (el) {
-    function removeFromShadows(root: Document | ShadowRoot | undefined): void {
-      for (const el of root?.querySelectorAll("*") ?? []) {
+    const removeFromShadows = (root: Document | ShadowRoot | undefined): void => {
+      for (const el of Array.from(root?.querySelectorAll("*") ?? [])) {
         if (el.shadowRoot) {
           el.shadowRoot.getElementById(id)?.remove();
           removeFromShadows(el.shadowRoot);
         }
       }
-    }
+    };
 
     el.remove();
     if (l) {

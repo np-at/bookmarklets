@@ -135,7 +135,7 @@ function applyToShadows(
   root: HTMLElement | ShadowRoot,
   fxn: (arg0: ShadowRoot) => void
 ): void {
-  for (const el of root.querySelectorAll("*")) {
+  for (const el of Array.from(root.querySelectorAll("*"))) {
     if (el.shadowRoot) {
       fxn(el.shadowRoot);
       // el.shadowRoot.appendChild(s.cloneNode(true));
@@ -149,10 +149,11 @@ function getOutline(): OutlineItem[] {
     document.querySelectorAll('h1,h2,h3,h4,h5,h6,h7,[role="heading"]')
   );
   applyToShadows(document.body, (root) => {
-    els.push(...root.querySelectorAll('h1,h2,h3,h4,h5,h6,h7,[role="heading"]'));
+    els.push(...Array.from(root.querySelectorAll('h1,h2,h3,h4,h5,h6,h7,[role="heading"]')));
   });
   digIntoIframes(document, (doc) => {
-    els.push(...doc.querySelectorAll('h1,h2,h3,h4,h5,h6,h7,[role="heading"]'));
+
+    els.push(...Array.from(doc.querySelectorAll('h1,h2,h3,h4,h5,h6,h7,[role="heading"]')));
   });
 
   const result: Array<{

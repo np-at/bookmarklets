@@ -46,12 +46,13 @@ function getShortestCssSelector(el: Element): string {
             path.unshift(selector);
             break;
         } else {
-            let sib = el;
+            let sib: Element|null = el;
             let nth = 1;
-            while (sib = sib.previousElementSibling) {
+            while (sib) {
                 if (sib.nodeName.toLowerCase() === selector) {
                     nth++;
                 }
+                sib = sib.previousElementSibling;
             }
             if (nth !== 1) {
                 selector += ":nth-of-type(" + String(nth) + ")";
@@ -64,48 +65,48 @@ function getShortestCssSelector(el: Element): string {
 }
 function getXpath(el: Element): string {
     return getShortestCssSelector(el);
-    let currentEl = el;
-    let currentElTagName = el.tagName.toLowerCase();
-    let parentEl: HTMLElement;
-    let parentElTagName = "";
-    let xpath = "";
-    let index = "";
-    let separator = "";
-
-    while (currentEl.parentNode) {
-        parentEl = currentEl.parentNode as HTMLElement;
-        if (parentEl.tagName) {
-            parentElTagName = parentEl.tagName.toLowerCase();
-            const elementsWithSameTagName = parentEl.querySelectorAll(":scope > " + currentEl.tagName);
-            if (elementsWithSameTagName.length > 1) {
-                index = "[" + parseInt(String(Array.from(elementsWithSameTagName).indexOf(currentEl) + 1)).toString() + "]";
-            } else {
-                index = "";
-            }
-            currentElTagName = currentEl.tagName.toLowerCase();
-            const id = currentEl.getAttribute("id");
-            if (id && useIDRefs) {
-                xpath = '/*[@id="' + id + '"]' + separator + xpath;
-            } else {
-                xpath = currentElTagName + index + separator + xpath;
-            }
-            separator = "/";
-        }
-
-        currentEl = parentEl as Element;
-    }
-    if (parentElTagName === "") {
-        parentElTagName = currentElTagName;
-    }
-    xpath = "//" + parentElTagName + index + separator + xpath;
-
-    const xpathSplit = xpath.split("//*");
-    if (xpathSplit.length > 1) {
-        xpath = xpathSplit[xpathSplit.length - 1];
-        xpath = "//*" + xpath;
-    }
-
-    return xpath;
+    // let currentEl = el;
+    // let currentElTagName = el.tagName.toLowerCase();
+    // let parentEl: HTMLElement;
+    // let parentElTagName = "";
+    // let xpath = "";
+    // let index = "";
+    // let separator = "";
+    //
+    // while (currentEl.parentNode) {
+    //     parentEl = currentEl.parentNode as HTMLElement;
+    //     if (parentEl.tagName) {
+    //         parentElTagName = parentEl.tagName.toLowerCase();
+    //         const elementsWithSameTagName = parentEl.querySelectorAll(":scope > " + currentEl.tagName);
+    //         if (elementsWithSameTagName.length > 1) {
+    //             index = "[" + parseInt(String(Array.from(elementsWithSameTagName).indexOf(currentEl) + 1)).toString() + "]";
+    //         } else {
+    //             index = "";
+    //         }
+    //         currentElTagName = currentEl.tagName.toLowerCase();
+    //         const id = currentEl.getAttribute("id");
+    //         if (id && useIDRefs) {
+    //             xpath = '/*[@id="' + id + '"]' + separator + xpath;
+    //         } else {
+    //             xpath = currentElTagName + index + separator + xpath;
+    //         }
+    //         separator = "/";
+    //     }
+    //
+    //     currentEl = parentEl as Element;
+    // }
+    // if (parentElTagName === "") {
+    //     parentElTagName = currentElTagName;
+    // }
+    // xpath = "//" + parentElTagName + index + separator + xpath;
+    //
+    // const xpathSplit = xpath.split("//*");
+    // if (xpathSplit.length > 1) {
+    //     xpath = xpathSplit[xpathSplit.length - 1];
+    //     xpath = "//*" + xpath;
+    // }
+    //
+    // return xpath;
 }
 
 function getXpathAndSource(): void {

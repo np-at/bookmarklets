@@ -11,7 +11,7 @@ function TextSpacing(): void {
   const l = f.length;
   if (el) {
     function removeFromShadows(root: ShadowRoot | Document | undefined): void {
-      for (const el of root?.querySelectorAll("*") ?? []) {
+      for (const el of Array.from(root?.querySelectorAll("*") ?? [])) {
         if (el.shadowRoot) {
           el.shadowRoot.getElementById(id)?.remove();
           removeFromShadows(el.shadowRoot);
@@ -38,7 +38,7 @@ function TextSpacing(): void {
       "*{line-height:1.5 !important;letter-spacing:0.12em !important;word-spacing:0.16em !important;}p{margin-bottom:2em !important;}";
 
     function applyToShadows(root: ShadowRoot | Document | undefined): void {
-      for (const el of root?.querySelectorAll("*") ?? []) {
+      for (const el of Array.from(root?.querySelectorAll("*") ?? [])) {
         if (el.shadowRoot) {
           el.shadowRoot.appendChild(s.cloneNode(true));
           applyToShadows(el.shadowRoot);

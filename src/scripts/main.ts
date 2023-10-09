@@ -4,7 +4,9 @@ import * as fs from "fs/promises";
 import { TypescriptBundler } from "@puresamari/ts-bundler";
 
 import { Command } from "commander";
-
+import {glob} from "glob";
+import {join, basename} from "node:path";
+const repoRoot = join(__dirname, "..", "..");
 const program = new Command();
 program.version("0.0.1");
 // program.option("-d, --debug", "debug mode",undefined, false);
@@ -12,11 +14,12 @@ program.option("-o, --output <file>", "output file");
 program.option("-i, --input <file>", "input file");
 program.option("--no-urlencode", "disable urlencoding of outputted js");
 program.option("--no-minify", "disable minification");
-
+  program.allowUnknownOption(false).allowExcessArguments(false)
 program.parse(argv);
 const { output, input, urlencode, minify } = program.opts();
-const inputFile = input;
-const outputFile = output;
+
+const inputFile: string = input;
+const outputFile: string = output;
 
 // const debug = program.debug;
 
@@ -83,44 +86,52 @@ const formatAsBookmarklet: (code: string) => string = (code: string) =>
 //     let exitCode = emitResult.emitSkipped ? 1 : 0;
 // }
 
-const bundler = new TypescriptBundler(inputFile);
 
 (async () => {
-  const r = await bundler.bundle();
-  // console.log(r.output)
-  let codeOutput: string | undefined;
-  if (minify) {
-    const minified = await terserMinify(r.output, {
-      compress: {
+  const inputFiles = await glob(inputFile)
+  console.log("input files: ", inputFiles)
+  for (const input of inputFiles) {
+    const bundler = new TypescriptBundler(input, join(__dirname, "..", "..", "tsconfig.web.json"));
+
+    const r = await bundler.bundle();
+    // console.log(r.output)
+    let codeOutput: string | undefined;
+    if (minify) {
+      const minified = await terserMinify(r.output, {
+        compress: {
+          keep_fnames: false,
+          // keep_fargs: false,
+          keep_classnames: false,
+          passes: 3,
+          booleans_as_integers: true,
+          drop_console: false,
+          toplevel: true,
+        },
+        mangle: {
+          keep_fnames: false,
+          toplevel: true,
+          keep_classnames: false,
+          properties: false,
+        },
+        // toplevel: true,
+        sourceMap: false,
         keep_fnames: false,
-        // keep_fargs: false,
         keep_classnames: false,
-        passes: 3,
-        booleans_as_integers: true,
-        drop_console: false,
-        toplevel: true,
-      },
-      mangle: {
-        keep_fnames: false,
-        toplevel: true,
-        keep_classnames: false,
-        properties: false,
-      },
-      // toplevel: true,
-      sourceMap: false,
-      keep_fnames: false,
-      keep_classnames: false,
-    });
-    codeOutput = minified.code;
-  } else {
-    codeOutput = r.output;
+      });
+      codeOutput = minified.code;
+    } else {
+      codeOutput = r.output;
+    }
+    const outFile = outputFile ?? join(repoRoot, "dist"  , basename(input, ".ts") + ".js");
+
+    console.log("writing to: ", outFile)
+    codeOutput &&
+    (await fs.writeFile(
+        outFile,
+        urlencode ? formatAsBookmarklet(codeOutput) : codeOutput
+    ));
   }
 
-  codeOutput &&
-    (await fs.writeFile(
-      outputFile,
-      urlencode ? formatAsBookmarklet(codeOutput) : codeOutput
-    ));
 })().then(
   (_) => {
     // console.log(formatAsBookmarklet(value))
