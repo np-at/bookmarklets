@@ -37,7 +37,7 @@ $(COMPILED_MARKLETS): $(UTIL_FILES)
 
 _site: bookmarklets
 	@echo "cleaning out directory"
-	"$(NPX_PATH)" parcel build --public-url bookmarklets/ --dist-dir _site src/index.html
+	"$(NPX_PATH)" parcel build --dist-dir _site src/index.html
 
 build: _site
 
