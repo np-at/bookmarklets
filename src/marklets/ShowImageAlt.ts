@@ -4,15 +4,21 @@ import {drawBox, type DrawStyleProps, ensureBoundingStyleAvailable} from "../uti
 
 
 const rel_showImageAlt = "aria-show-image-alt";
+
+function _reset(): void {
+    console.debug("resetting")
+    const s = Array.from(document.querySelectorAll(`[rel=${rel_showImageAlt}]`))
+    // console.log("found", s)
+    s.forEach((el) => {
+        el.remove()
+
+    })
+}
+
 function _main(reset: boolean = false): void {
     ensureBoundingStyleAvailable();
     if (reset) {
-        console.log("resetting")
-        const s = Array.from(document.querySelectorAll(`[rel=${rel_showImageAlt}]`))
-        console.log("found", s)
-            s.forEach((el) => {
-            el.parentNode?.removeChild(el);
-        })
+        _reset();
     }
     const errors: string[] = [];
     Array.from(document.querySelectorAll("img, svg, [role=img]")).forEach((el) => {
@@ -73,16 +79,24 @@ function _main(reset: boolean = false): void {
         // }
 
     })
-}
-// probably could have been done with clever use of pseudo-elements
-// but, I'm not that clever
-let _timer: number | undefined;
-window.addEventListener("resize",() => {
-    if (_timer) {
-        window.clearTimeout(_timer);
+    if (errors.length) {
+        console.warn(errors)
     }
-    _timer = window.setTimeout(() => {
-        _main(true);
-    }, 500)
-});
-_main();
+}
+
+if (document.querySelector(`[rel=${rel_showImageAlt}]`)) {
+    _reset();
+} else {
+    // probably could have been done with clever use of pseudo-elements
+// but, I'm not that clever
+    let _timer: number | undefined;
+    window.addEventListener("resize", () => {
+        if (_timer) {
+            window.clearTimeout(_timer);
+        }
+        _timer = window.setTimeout(() => {
+            _main(true);
+        }, 500)
+    });
+    _main();
+}
