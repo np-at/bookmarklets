@@ -22,7 +22,7 @@ dist .tmp:
 install: .tmp/.install | .tmp
 
 .tmp/.install .node_modules: package-lock.json package.json | .tmp
-	"$(NPM_PATH)" install
+	"$(NPM_PATH)" clean-install
 	touch .tmp/.install
 
 bookmarklets: $(COMPILED_MARKLETS)
