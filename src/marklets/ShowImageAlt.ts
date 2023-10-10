@@ -11,7 +11,7 @@ function _main(reset: boolean = false): void {
             el.parentNode?.removeChild(el);
         })
     }
-
+    const errors: string[] = [];
     Array.from(document.querySelectorAll("img, svg, [role=img]")).forEach((el) => {
         let overlayText: string;
 
@@ -38,7 +38,8 @@ function _main(reset: boolean = false): void {
         }
         if (alt && ATName) {
             if (alt !== ATName) {
-                console.warn(`alt text "${alt}" does not match accessible name "${ATName}" for `, el);
+                errors.push(`alt text "${alt}" does not match accessible name "${ATName}" for `, el.innerHTML)
+                // console.warn(`alt text "${alt}" does not match accessible name "${ATName}" for `, el);
                 style.borderColor = "goldenrod";
                 overlayText += ` (WARN: accessible name does not match alt text\n Accessible Name: ${ATName})a;lsdkjf;aslkjdf;lasdkjf;laskdjf;laskdjf;laskdjf;laskdjf;lasdkjf;alsdkjf;lasdkjf;alsdkjf;alsdkjf;asldkfja;sasdlkfjasldkfj`;
 
@@ -46,7 +47,7 @@ function _main(reset: boolean = false): void {
         }
         const {x, y} = el.getBoundingClientRect()
         const scrim = document.createElement("div");
-        scrim.setAttribute('rel', 'aria-alt-text');
+        scrim.setAttribute('rel', rel_showImageAlt);
         scrim.style.left = `${x}px`;
         scrim.style.top = `${y}px`;
         scrim.style.width = `${el.clientWidth}px`;
@@ -58,7 +59,7 @@ function _main(reset: boolean = false): void {
         document.body.appendChild(scrim);
 
 
-        drawBox(scrim as HTMLElement, "alt-text", overlayText ?? "ERROR", style)
+        drawBox(scrim as HTMLElement, rel_showImageAlt, overlayText ?? "ERROR", style)
 
         // if (alt === "") {
         // }
