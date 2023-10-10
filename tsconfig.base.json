@@ -10,7 +10,9 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "noEmit": true,
+    "skipLibCheck": true
   },
   "typeAcquisition": {
     "enable": true

@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noEmit": true,
+    "types": ["node"],
   },
   "typeAcquisition": {
     "enable": true

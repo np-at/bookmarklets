@@ -1,15 +1,15 @@
 #!/usr/bin/env node
-import path from "node:path";
+import {join, relative, resolve} from "node:path";
 import {existsSync, constants} from "fs";
 import {writeFile, readFile} from "fs/promises";
 import inquirer from "inquirer";
 
-const repoHome = path.resolve(path.join(__dirname, "..", ".."))
-const srcDir = path.join(repoHome, "src")
-const bookmarkletSrcDir = path.join(srcDir, "marklets")
-const scriptSrcDir = path.join(srcDir, "scripts");
-const distDir = path.join(repoHome, "dist");
-const webScript = path.join(scriptSrcDir, "web.ts");
+const repoHome = resolve(join(__dirname, "..", ".."))
+const srcDir = join(repoHome, "src")
+const bookmarkletSrcDir = join(srcDir, "marklets")
+const scriptSrcDir = join(srcDir, "scripts");
+
+const webScript = join(scriptSrcDir, "web.ts");
 
 
     (async () => {
@@ -24,12 +24,12 @@ const webScript = path.join(scriptSrcDir, "web.ts");
             console.log("No name provided, exiting...")
             process.exit(1)
         }
-        const newScriptPath = path.join(bookmarkletSrcDir, `${newScriptName.trim()}.ts`)
+        const newScriptPath = join(bookmarkletSrcDir, `${newScriptName.trim()}.ts`)
         if (existsSync(newScriptPath)) {
             console.log(`File ${newScriptPath} already exists, exiting...`)
             process.exit(1)
         }
-        const newScript = `// Path: ${path.relative(repoHome, newScriptPath)}\n`
+        const newScript = `// Path: ${relative(repoHome, newScriptPath)}\n`
         await writeFile(newScriptPath, newScript)
         console.log(`Created ${newScriptPath}`)
         const webScriptImportStmt = `const ${newScriptName.trim()} = fs.readFileSync(
