@@ -7,7 +7,7 @@
     "dev": "parcel serve src/index.html",
     "pretest": "npx playwright install",
     "test": "npx playwright test",
-    "predev": "tsx src/scripts/main.ts --input 'src/marklets/*.ts'"
+    "build-bookmarklets": "tsx src/scripts/main.ts --input 'src/marklets/*.ts'"
   },
   "keywords": [],
   "author": "",

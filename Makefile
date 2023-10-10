@@ -30,7 +30,7 @@ bookmarklets: $(COMPILED_MARKLETS)
 
 $(COMPILED_MARKLETS) : dist/%.js : src/marklets/%.ts  | dist .node_modules .tmp/.install # $(MS) install
 	@echo "Compiling $@"
-	@"$(NPX_PATH)" ts-node "$(MS)" --input $< --output $@
+	@"$(NPX_PATH)" tsx --tsconfig tsconfig.web.json "$(MS)" --input $< --output $@
 
 $(COMPILED_MARKLETS): $(UTIL_FILES)
 
@@ -48,6 +48,7 @@ clean:
 	@echo "Cleaning"
 	rm -rf dist/*
 	rm -rf .tmp/
+	rm -rf .parcel-cache/
 
 clean-all: clean
 	rm -rf node_modules
