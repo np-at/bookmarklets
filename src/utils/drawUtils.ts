@@ -54,7 +54,7 @@ const defaultStyle: DrawStyleProps = {
 export function drawBox(element: HTMLElement, utilityName: string, content: string, style?: DrawStyleProps): void {
     const blockDiv = document.createElement("div");
     const coords = element.getBoundingClientRect();
-    blockDiv.setAttribute('rel', 'aria-' + utilityName);
+    blockDiv.setAttribute('rel', utilityName);
     blockDiv.className = 'segment-rect';
     blockDiv.style.left = `${coords.x + (coords.width / 2)  - 100}px`;
     blockDiv.style.top = `${coords.y + (coords.height / 2) - 10}px`;

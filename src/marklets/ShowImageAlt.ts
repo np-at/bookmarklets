@@ -7,7 +7,10 @@ const rel_showImageAlt = "aria-show-image-alt";
 function _main(reset: boolean = false): void {
     ensureBoundingStyleAvailable();
     if (reset) {
-        document.querySelectorAll(`[rel=${rel_showImageAlt}]`).forEach((el) => {
+        console.log("resetting")
+        const s = Array.from(document.querySelectorAll(`[rel=${rel_showImageAlt}]`))
+        console.log("found", s)
+            s.forEach((el) => {
             el.parentNode?.removeChild(el);
         })
     }
