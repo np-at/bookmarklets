@@ -19,6 +19,11 @@
     "parcel": "^2.9.3",
     "terser": "^5.21.0"
   },
+  "overrides": {
+    "@parcel/optimizer-htmlnano": {
+      "htmlnano": "2.0.3"
+    }
+  },
   "devDependencies": {
     "@parcel/transformer-inline-string": "^2.9.3",
     "@playwright/test": "^1.38.1",

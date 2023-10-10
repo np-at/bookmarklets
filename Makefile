@@ -35,7 +35,11 @@ $(COMPILED_MARKLETS) : dist/%.js : src/marklets/%.ts  | dist .node_modules .tmp/
 $(COMPILED_MARKLETS): $(UTIL_FILES)
 
 
-build: bookmarklets
+_site: bookmarklets
+	@echo "cleaning out directory"
+	"$(NPX_PATH)" parcel build --dist-dir _site src/index.html
+
+build: _site
 
 serve: bookmarklets
 	"$(NPM_PATH)" run dev
