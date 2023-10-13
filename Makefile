@@ -18,6 +18,8 @@ help:
 dist .tmp:
 	mkdir -p $@
 
+lint: .node_modules
+	"$(NPM_PATH)" run lint
 
 install: .tmp/.install | .tmp
 
@@ -59,4 +61,4 @@ clean-all: clean
 	rm -f .node_modules
 
 
-.PHONY: clean clean-all bookmarklets help install test all serve build
+.PHONY: clean clean-all bookmarklets help install test all serve build lint new-bookmarklet

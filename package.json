@@ -7,7 +7,8 @@
     "dev": "parcel serve src/index.html",
     "pretest": "npx playwright install",
     "test": "npx playwright test",
-    "build-bookmarklets": "tsx src/scripts/main.ts --input 'src/marklets/*.ts'"
+    "build-bookmarklets": "tsx src/scripts/main.ts --input 'src/marklets/*.ts'",
+    "lint": "eslint --ext .ts src"
   },
   "keywords": [],
   "author": "",

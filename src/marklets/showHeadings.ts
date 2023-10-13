@@ -41,7 +41,7 @@ iframe.onload = function () {
 
   const quitButton = doc.querySelector('[data-action="close"]');
   if (quitButton != null) {
-    quitButton.addEventListener("click", function (e: any) {
+    quitButton.addEventListener("click", function (e: Event) {
       disableHoverHighlight();
       window.removeEventListener("resize", updateHeight);
       document.body.removeChild(container);
@@ -189,7 +189,7 @@ function getOutline(): OutlineItem[] {
   return result;
 }
 
-function countOutline(list: string | any[], key: string): number {
+function countOutline(list: OutlineItem[], key: keyof OutlineItem): number {
   let count = 0;
   for (let i = 0; i < list.length; i++) {
     if (list[i][key]) count++;
@@ -222,7 +222,7 @@ function outlineToHTML(list: OutlineItem[]): string {
   return '<ul id="headings">' + html + "</ul>";
 }
 
-function htmlEntities(str: any): string {
+function htmlEntities(str?: string): string {
   return String(str)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -358,7 +358,7 @@ function highlightLink(el: HTMLElement | null): void {
   }
 }
 
-function handleElementHover(event: { target: any }): void {
+function handleElementHover(event: MouseEvent): void {
   const target = event.target;
   const all = document.body.querySelectorAll("*");
   let searchHeading = false;
