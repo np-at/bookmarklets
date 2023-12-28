@@ -1,14 +1,14 @@
 // jest config for typescript
 {
   "compilerOptions": {
-    "types": ["jest", "node"],
+    "types": ["jest"],
+    "lib": ["dom", "es2022"],
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "esModuleInterop": true
   },
-  "typeAcquisition": {
-    "enable": true
-  },
-  "extends": ["./tsconfig.base.json"],
 
-  "include": [ "./**/*.spec.ts", "./tests/**/*.ts", "./test*/**/*.ts"]
+//  "extends": ["./tsconfig.base.json"],
+  "exclude": ["**/*.ts"],
+  "include": [ "./**/*.spec.ts","./**/*.test.ts","jest.config.js"]
 }

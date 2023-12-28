@@ -52,7 +52,10 @@ const Pathify = fs.readFileSync(
     "utf-8"
 );
 // END: import scripts
-const root = document.querySelector("#root") as HTMLDivElement;
+const root = document.querySelector("#root");
+if (!root) {
+    throw new Error("root element not found");
+}
 const makeLink = (x: string, name: string): void => {
   const anchorElement = document.createElement("a");
   anchorElement.href = x;

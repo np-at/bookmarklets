@@ -1,18 +1,32 @@
 {
-  "extends": "./tsconfig.base.json",
+//  "extends": ["./tsconfig.base.json"],
+
   "compilerOptions": {
-    "types": [
-      "chrome"],
+    "module": "ES2022",
     "lib": [
-      "es2015",
+//      "ES2022",
+//      "dom",
+      "DOM",
+      "dom.iterable",
       "dom"
     ],
-    "target": "ES2022"
+    "target": "ES2022",
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  //  "exclude": [
+//    "./**/*.spec.ts",
+//    "./**/*.test.ts",
+//  ],
+  "typeAcquisition": {
+    "enable": true
   },
   "include": [
     "./src/marklets/**/*.ts",
     "./aria-api.d.ts",
-    "./src/utils/**/*.ts"
+    "./src/utils/**.ts",
+   "./src/utils/finder.ts",
+    "./tests/**/*.ts",
+    "playwright.config.ts"
   ]
-
 }

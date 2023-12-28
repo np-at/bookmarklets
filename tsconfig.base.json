@@ -10,14 +10,17 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "baseUrl": ".",
     "noEmit": true,
-    "skipLibCheck": true
+    "rootDir": ".",
+    "sourceRoot": ".",
+    "skipLibCheck": true,
+    "lib": ["dom","es2022"],
   },
   "typeAcquisition": {
     "enable": true
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "dist", "\\.*"],
+  "include": [],
   "ts-node": {
     "compiler": "typescript",
     "compilerOptions": {
@@ -25,7 +28,9 @@
       "allowJs": true,
       "allowSyntheticDefaultImports": true,
       "checkJs": false,
-      "target": "ES6"
+      "target": "ES6",
+      "lib": ["dom","es2022"],
+      "esModuleInterop": true
     }
   }
 }

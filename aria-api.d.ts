@@ -1,5 +1,4 @@
 // noinspection JSUnusedGlobalSymbols
-
 declare module "aria-api" {
   export const getRole: (el: Element) => string;
   export const getAttribute: (el: Element) => string;
@@ -11,7 +10,7 @@ declare module "aria-api" {
   export const closest: (el: Element, selector: string) => Element | null;
   export const getParentNode: (node: Node, owners?: Node[] ) => Node | null;
   export const getChildNodes: (node: Node, owners?: Node[] ) => Node[];
-  export function hasRole(el: any, roles: any): any;
-  export function walk(root: any, fn: any): void;
-  export function searchUp(node: any, test: any): any;
+  export function hasRole(el: Element, roles: string[]): boolean;
+  export function walk(root: Node, fn: (Node)=>never): void;
+  export function searchUp(node: Node, test: (Node)=>boolean): Node | undefined;
 }
