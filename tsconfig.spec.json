@@ -5,10 +5,10 @@
     "lib": ["dom", "es2022"],
     "skipLibCheck": true,
     "noEmit": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": true
   },
-
-//  "extends": ["./tsconfig.base.json"],
+    "extends": ["./tsconfig.base.json"],
   "exclude": ["**/*.ts"],
   "include": [ "./**/*.spec.ts","./**/*.test.ts","jest.config.js"]
 }
