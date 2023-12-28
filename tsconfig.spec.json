@@ -9,6 +9,6 @@
     "strict": true
   },
     "extends": ["./tsconfig.base.json"],
-  "exclude": ["**/*.ts"],
-  "include": [ "./**/*.spec.ts","./**/*.test.ts","jest.config.js"]
+  "exclude": ["node_modules", "dist"],
+  "include": [ "src/*/*.spec.ts","src/**/*.test.ts","jest.config.js", "tests/**/*.ts"]
 }

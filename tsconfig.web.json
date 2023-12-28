@@ -4,7 +4,7 @@
   "compilerOptions": {
     "module": "ES2022",
     "lib": [
-//      "ES2022",
+      "ES2022",
 //      "dom",
       "DOM",
       "dom.iterable",
@@ -22,10 +22,19 @@
   "typeAcquisition": {
     "enable": true
   },
-
+  "exclude": [
+"node_modules",
+    "dist",
+    "src/scripts/",
+    "tests/**/*",
+    "dist/**/*",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+  ],
   "include": [
     "./src/marklets/**/*.ts",
     "./aria-api.d.ts",
+    "./src/utils/*.ts",
     "./src/utils/**.ts",
    "./src/utils/finder.ts",
     "./tests/**/*.ts",
