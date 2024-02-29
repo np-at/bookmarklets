@@ -1,13 +1,27 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "noEmit": true,
-    "types": ["node"],
+    "module": "commonjs",
+    "outDir": "./dist",
+    "types": [
+      "node"
+    ],
+    "lib": [
+      "ES2022"
+    ],
+    "noEmit": false
   },
   "typeAcquisition": {
     "enable": true
   },
-  "extends": ["./tsconfig.base.json"],
-
-  "include": [ "./src/scripts/**/*.ts"]
+  "extends": [
+    "./tsconfig.base.json"
+  ],
+  "include": [
+    "./src/scripts/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "./src/scripts/web.ts"
+  ]
 }

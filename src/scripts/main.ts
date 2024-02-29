@@ -4,8 +4,8 @@ import * as fs from "fs/promises";
 import { TypescriptBundler } from "@puresamari/ts-bundler";
 
 import { Command } from "commander";
-import {glob} from "glob";
-import {join, basename} from "node:path";
+import { glob } from "glob";
+import { join, basename } from "node:path";
 const repoRoot = join(__dirname, "..", "..");
 const program = new Command();
 program.version("0.0.1");
@@ -14,7 +14,7 @@ program.option("-o, --output <file>", "output file");
 program.option("-i, --input <file>", "input file");
 program.option("--no-urlencode", "disable urlencoding of outputted js");
 program.option("--no-minify", "disable minification");
-  program.allowUnknownOption(false).allowExcessArguments(false)
+program.allowUnknownOption(false).allowExcessArguments(false);
 program.parse(argv);
 const { output, input, urlencode, minify } = program.opts();
 
@@ -86,13 +86,14 @@ const formatAsBookmarklet: (code: string) => string = (code: string) =>
 //     let exitCode = emitResult.emitSkipped ? 1 : 0;
 // }
 
-
 (async () => {
-  const inputFiles = await glob(inputFile)
-  console.log("input files: ", inputFiles)
+  const inputFiles = await glob(inputFile);
+  console.log("input files: ", inputFiles);
   for (const input of inputFiles) {
-    const bundler = new TypescriptBundler(input, join(__dirname, "..", "..", "tsconfig.web.json"));
-
+    const bundler = new TypescriptBundler(
+      input,
+      join(__dirname, "..", "..", "tsconfig.web.json")
+    );
     const r = await bundler.bundle();
     // console.log(r.output)
     let codeOutput: string | undefined;
@@ -105,14 +106,17 @@ const formatAsBookmarklet: (code: string) => string = (code: string) =>
           passes: 3,
           booleans_as_integers: true,
           drop_console: false,
+
+          side_effects: false,
           toplevel: true,
         },
-        mangle: {
-          keep_fnames: false,
-          toplevel: true,
-          keep_classnames: false,
-          properties: false,
-        },
+        mangle: false,
+        // mangle: {
+        //   keep_fnames: false,
+        //   toplevel: true,
+        //   keep_classnames: false,
+        //   properties: false,
+        // },
         // toplevel: true,
         sourceMap: false,
         keep_fnames: false,
@@ -122,16 +126,16 @@ const formatAsBookmarklet: (code: string) => string = (code: string) =>
     } else {
       codeOutput = r.output;
     }
-    const outFile = outputFile ?? join(repoRoot, "dist"  , basename(input, ".ts") + ".js");
+    const outFile =
+      outputFile ?? join(repoRoot, "dist", basename(input, ".ts") + ".js");
 
-    console.log("writing to: ", outFile)
+    console.log("writing to: ", outFile);
     codeOutput &&
-    (await fs.writeFile(
+      (await fs.writeFile(
         outFile,
         urlencode ? formatAsBookmarklet(codeOutput) : codeOutput
-    ));
+      ));
   }
-
 })().then(
   (_) => {
     // console.log(formatAsBookmarklet(value))

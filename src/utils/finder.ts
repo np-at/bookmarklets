@@ -277,7 +277,7 @@ export function finder(input: Element, options?: Partial<FinderOptions>): string
     }
 
     function sort(paths: Iterable<Path>): Path[] {
-        return [...paths].sort((a, b) => penalty(a) - penalty(b));
+        return Array.from(paths).map(x=>x).sort((a, b) => penalty(a) - penalty(b));
     }
 
     interface Scope {

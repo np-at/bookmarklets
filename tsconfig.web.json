@@ -1,43 +1,43 @@
 {
-  "extends": ["./tsconfig.base.json"],
-
+  "extends": [
+    "./tsconfig.base.json"
+  ],
   "compilerOptions": {
-    "module": "ES2022",
+    "module": "CommonJS",
     "lib": [
       "ES2022",
-//      "dom",
       "DOM",
-      "dom.iterable",
-      "dom"
+      "DOM.Iterable"
     ],
     "target": "ES2022",
     "esModuleInterop": true,
+    // "downlevelIteration": false,
     "skipLibCheck": true,
-    "strict": true
+    // "strict": true
   },
   //  "exclude": [
-//    "./**/*.spec.ts",
-//    "./**/*.test.ts",
-//  ],
+  //    "./**/*.spec.ts",
+  //    "./**/*.test.ts",
+  //  ],
   "typeAcquisition": {
     "enable": true
   },
+  "files": ["./src/scripts/web.ts"],
   "exclude": [
-"node_modules",
+    "node_modules",
     "dist",
-    "src/scripts/",
-    "tests/**/*",
-    "dist/**/*",
-    "**/*.spec.ts",
-    "**/*.test.ts",
+    "./tests/**/*",
+    "./dist/**/*",
+    "./**/*.spec.ts",
+    "./**/*.test.ts",
   ],
   "include": [
-    "./src/marklets/**/*.ts",
+    "./src/Element.d.ts",
+    "./src/marklets/*.ts",
     "./aria-api.d.ts",
     "./src/utils/*.ts",
     "./src/utils/**.ts",
-   "./src/utils/finder.ts",
-    "./tests/**/*.ts",
-    "playwright.config.ts"
+    "./src/utils/finder.ts",
+    "./tests/**/*.ts"
   ]
 }

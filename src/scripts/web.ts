@@ -1,14 +1,13 @@
-import  fs from "fs";
+import fs from "fs";
 import { join } from "path";
 
 import "./style.css";
 console.log(join(__dirname, "../../dist", "fcs.js"));
 // START: import scripts
 const ShowImageAlt = fs.readFileSync(
-        join(__dirname, "../../dist", "ShowImageAlt.js"),
-        "utf-8"
-    )
-
+  join(__dirname, "../../dist", "ShowImageAlt.js"),
+  "utf-8"
+);
 const fcs = fs.readFileSync(join(__dirname, "../../dist", "fcs.js"), "utf-8");
 const ForceFocusOutline = fs.readFileSync(
   join(__dirname, "../../dist", "ForceFocusOutline.js"),
@@ -40,21 +39,25 @@ const IdentifyExplicitNames = fs.readFileSync(
   "utf-8"
 );
 const ImageChecker = fs.readFileSync(
-    join(__dirname, "../../dist", "ImageCheck.js"),
-    "utf-8"
+  join(__dirname, "../../dist", "ImageCheck.js"),
+  "utf-8"
 );
 const Axify = fs.readFileSync(
-    join(__dirname, "../../dist", "Axify.js"),
-    "utf-8"
+  join(__dirname, "../../dist", "Axify.js"),
+  "utf-8"
 );
 const Pathify = fs.readFileSync(
-    join(__dirname, "../../dist", "Pathify.js"),
-    "utf-8"
+  join(__dirname, "../../dist", "Pathify.js"),
+  "utf-8"
+);
+const MakeSkele = fs.readFileSync(
+  join(__dirname, "../../dist", "MakeSkele.js"),
+  "utf-8"
 );
 // END: import scripts
 const root = document.querySelector("#root");
 if (!root) {
-    throw new Error("root element not found");
+  throw new Error("root element not found");
 }
 const makeLink = (x: string, name: string): void => {
   const anchorElement = document.createElement("a");
@@ -76,7 +79,8 @@ makeLink(FindDuplicateIds, "FindDuplicateIds");
 makeLink(HoverTest, "HoverTest");
 makeLink(IdentifyExplicitNames, "IdentifyExplicitNames");
 makeLink(ImageChecker, "ImageChecker");
-makeLink(Pathify, "Pathify")
+makeLink(Pathify, "Pathify");
+makeLink(MakeSkele, "MakeSkele");
 
 // END: add links
 

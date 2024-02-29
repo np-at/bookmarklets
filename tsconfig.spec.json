@@ -6,9 +6,8 @@
     "skipLibCheck": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "strict": true
   },
     "extends": ["./tsconfig.base.json"],
   "exclude": ["node_modules", "dist"],
-  "include": [ "src/*/*.spec.ts","src/**/*.test.ts","jest.config.js", "tests/**/*.ts"]
+  "include": [ "src/*/*.spec.ts","src/**/*.test.ts","jest.config.js", "tests/**/*.ts", "playwright.config.ts"]
 }
