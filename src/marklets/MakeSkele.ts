@@ -6,7 +6,7 @@ function strToHash(str?: string | null): number {
   return hashCode(str ?? "");
   if (!str || str === "") return 0;
   let hashString = 0;
-  for (const character of str) {
+  for (const character of str ?? "") {
     const charCode = character.charCodeAt(0);
     hashString = hashString << (5 - hashString);
     hashString += charCode;
@@ -25,11 +25,11 @@ interface HashData {
   sum?: number;
 }
 
-declare interface Element {
+declare interface LinkElement extends Element  {
   hash_data?: HashData;
 }
 
-function hashAttr(el: Element): Element {
+function hashAttr(el: LinkElement): LinkElement {
   if (typeof el.hash_data?.attrHash !== "undefined") {
     return el;
   }
@@ -52,10 +52,10 @@ function hashAttr(el: Element): Element {
 
 // class ElNode {
 //     hash_data: Required<HashData>;
-//     el: Element;
+//     el: LinkElement;
 //     children?: ElNode[];
 //
-//     constructor(el: Element) {
+//     constructor(el: LinkElement) {
 //         this.el = el;
 //         this.hash_data = hashNode(el).hash_data;
 //
@@ -73,7 +73,7 @@ interface NodeRep {
   sel?: string;
 
 }
-function makeNodeRep(el: Element): NodeRep {
+function makeNodeRep(el: LinkElement): NodeRep {
   const rep: NodeRep =  {
     tag: el.tagName,
     hash: el.hash_data?.sum?.toString(16) ?? "none",
@@ -81,12 +81,12 @@ function makeNodeRep(el: Element): NodeRep {
     children: Array.from(el.children).filter(x=>!nonSemanticTags.includes(x.tagName)).map((el) => hashNode(el)),
     attrHash: el.hash_data?.attrHash,
     childrenHash: el.hash_data?.childrenHash,
-    textHash: el.hash_data?.textHash
+    textHash: el.hash_data?.textHash,
     sel: finder(el)
   }
   return rep
 }
-function hashNode(el: Element):NodeRep {
+function hashNode(el: LinkElement):NodeRep {
   if (typeof el.hash_data?.sum !== "undefined") {
     return makeNodeRep(el);
   }
@@ -113,12 +113,12 @@ function hashNode(el: Element):NodeRep {
     el.hash_data.textHash;
   // console.log(el.hash_data?.sum?.toString(16), el);
   el.setAttribute("data-hash", el.hash_data.sum.toString(16));
-  
+
   return makeNodeRep(el);
-  // return el as Element & { hash_data: Required<HashData> };
+  // return el as LinkElement & { hash_data: Required<HashData> };
 }
 
-function hashChildren(el: Element): Element {
+function hashChildren(el: LinkElement): LinkElement {
   if (typeof el.hash_data?.childrenHash !== "undefined") {
     return el;
   }
@@ -141,7 +141,7 @@ function hashChildren(el: Element): Element {
           childrenNodeHash += hashNode(child).hash_num ?? 0;
         } else {
           throw new Error(
-            "Node has nodeType of ELEMENT_NODE but is not an Element"
+            "Node has nodeType of ELEMENT_NODE but is not an LinkElement"
           );
         }
         break;
@@ -159,7 +159,7 @@ function hashChildren(el: Element): Element {
   return el;
 }
 
-function MakeSkele(root: Element): void {
+function MakeSkele(root: LinkElement): void {
   // console.log("testing2")
   // root.querySelectorAll("body *").forEach((el) => {
   //   hashNode(el);
@@ -169,7 +169,7 @@ function MakeSkele(root: Element): void {
   // Array.from(root.children).forEach((el) => {
   //   hashNode(el);
   // })
-  
+
 }
 
 MakeSkele(document.body);

@@ -1,60 +1,21 @@
-import fs from "fs";
-import { join } from "path";
-
+import fcs from "marklet:../marklets/fcs.ts"
+import Axify from "marklet:../marklets/Axify.ts"
+import ForceFocusOutline from "marklet:../marklets/ForceFocusOutline.ts"
+import TextSpacing from "marklet:../marklets/TextSpacing.ts"
+import AriaLiveObserver from "marklet:../marklets/MonitorAriaLive.ts"
+import ShowHeadings from "marklet:../marklets/showHeadings.ts"
+import FindDuplicateIds from "marklet:../marklets/FindDuplicateIds.ts"
+import HoverTest from "marklet:../marklets/HoverTest.ts"
+import IdentifyExplicitNames from "marklet:../marklets/IdentifyExplicitNames.ts"
+import ImageChecker from "marklet:../marklets/ImageCheck.ts"
+import Pathify from "marklet:../marklets/Pathify.ts"
+import MakeSkele from "marklet:../marklets/MakeSkele.ts"
+import ShowImageAlt from "marklet:../marklets/ShowImageAlt"
 import "./style.css";
-console.log(join(__dirname, "../../dist", "fcs.js"));
-// START: import scripts
-const ShowImageAlt = fs.readFileSync(
-  join(__dirname, "../../dist", "ShowImageAlt.js"),
-  "utf-8"
-);
-const fcs = fs.readFileSync(join(__dirname, "../../dist", "fcs.js"), "utf-8");
-const ForceFocusOutline = fs.readFileSync(
-  join(__dirname, "../../dist", "ForceFocusOutline.js"),
-  "utf-8"
-);
-const TextSpacing = fs.readFileSync(
-  join(__dirname, "../../dist", "TextSpacing.js"),
-  "utf-8"
-);
-const AriaLiveObserver = fs.readFileSync(
-  join(__dirname, "../../dist", "MonitorAriaLive.js"),
-  "utf-8"
-);
-const ShowHeadings = fs.readFileSync(
-  join(__dirname, "../../dist", "showHeadings.js"),
-  "utf-8"
-);
-const FindDuplicateIds = fs.readFileSync(
-  join(__dirname, "../../dist", "FindDuplicateIds.js"),
-  "utf-8"
-);
-const HoverTest = fs.readFileSync(
-  join(__dirname, "../../dist", "HoverTest.js"),
-  "utf-8"
-);
 
-const IdentifyExplicitNames = fs.readFileSync(
-  join(__dirname, "../../dist", "IdentifyExplicitNames.js"),
-  "utf-8"
-);
-const ImageChecker = fs.readFileSync(
-  join(__dirname, "../../dist", "ImageCheck.js"),
-  "utf-8"
-);
-const Axify = fs.readFileSync(
-  join(__dirname, "../../dist", "Axify.js"),
-  "utf-8"
-);
-const Pathify = fs.readFileSync(
-  join(__dirname, "../../dist", "Pathify.js"),
-  "utf-8"
-);
-const MakeSkele = fs.readFileSync(
-  join(__dirname, "../../dist", "MakeSkele.js"),
-  "utf-8"
-);
-// END: import scripts
+
+// const asdf = "asdf"
+// // END: import scripts
 const root = document.querySelector("#root");
 if (!root) {
   throw new Error("root element not found");
@@ -67,6 +28,7 @@ const makeLink = (x: string, name: string): void => {
 };
 
 // START: add links
+// makeLink(asdf, "asdf")
 makeLink(ShowImageAlt, "ShowImageAlt");
 
 makeLink(fcs, "fcs");

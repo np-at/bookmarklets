@@ -14,3 +14,8 @@ declare module "aria-api" {
   export function walk(root: Node, fn: (Node)=>never): void;
   export function searchUp(node: Node, test: (Node)=>boolean): Node | undefined;
 }
+
+declare module 'marklet:*' {
+  const value:string;
+  export default value;
+}

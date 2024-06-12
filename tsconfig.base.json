@@ -1,5 +1,5 @@
 {
-  
+
   "compilerOptions": {
     "composite": true,
     "module": "commonjs",
@@ -12,24 +12,28 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-//    "rootDir": ".",
+    "rootDir": ".",
     "sourceRoot": ".",
     "skipLibCheck": true,
     "lib": ["dom","es2022"],
+    "baseUrl": "."
   },
+
   "references": [
     {
       "path": "./tsconfig.node.json"
     },
     {
       "path": "./tsconfig.web.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
     }
   ],
-  "typeAcquisition": {
-    "enable": true
-  },
-  "exclude": ["node_modules", "dist", "\\.*"],
-  "include": [],
+
+//  "exclude": ["node_modules", "dist"],
+//  "include": ["src"],
+
   "ts-node": {
     "compiler": "typescript",
     "compilerOptions": {

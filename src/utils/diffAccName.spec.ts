@@ -1,5 +1,5 @@
 import {levenshtein, levenshteinEditDistance} from "./diffAccName";
-import {randomString} from "./stringUtils";
+import {randomString} from "./stringUtils.js";
 
 
 const ARLENGTH = 10000;

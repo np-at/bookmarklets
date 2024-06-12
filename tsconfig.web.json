@@ -1,7 +1,6 @@
 {
-  "extends": [
-    "./tsconfig.base.json"
-  ],
+  "extends":
+    "./tsconfig.base.json",
   "compilerOptions": {
     "module": "CommonJS",
     "lib": [
@@ -11,33 +10,22 @@
     ],
     "target": "ES2022",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
     // "downlevelIteration": false,
-    "skipLibCheck": true,
     // "strict": true
   },
   //  "exclude": [
   //    "./**/*.spec.ts",
   //    "./**/*.test.ts",
   //  ],
-  "typeAcquisition": {
-    "enable": true
-  },
-  "files": ["./src/scripts/web.ts"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "./tests/**/*",
-    "./dist/**/*",
-    "./**/*.spec.ts",
-    "./**/*.test.ts",
-  ],
+
+  "exclude": ["node_modules", "dist", "tests"],
   "include": [
-    "./src/Element.d.ts",
-    "./src/marklets/*.ts",
+    "src/Element.d.ts",
+    "src/marklets/*.ts",
     "./aria-api.d.ts",
-    "./src/utils/*.ts",
-    "./src/utils/**.ts",
-    "./src/utils/finder.ts",
+    "src/utils/*.ts",
+    "src/utils/finder.ts",
     "./tests/**/*.ts"
   ]
 }

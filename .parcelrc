@@ -2,7 +2,8 @@
   "extends": "@parcel/config-default",
     "transformers": {
       "bundle-text:*": ["@parcel/transformer-inline-string"],
-      "data-url:*": ["...", "@parcel/transformer-inline-string"]
+      "data-url:*": ["...", "@parcel/transformer-inline-string"],
+      "marklet:*": ["...","./transformer_scr.mjs"]
     },
     "optimizers": {
       "data-url:*": ["...", "@parcel/optimizer-data-url"]
