@@ -35,7 +35,7 @@ const formatAsBookmarklet = (code) =>
 async function compile(inputFile, minify) {
     const bundler = new TypescriptBundler(
         inputFile,
-        join(__dirname, "tsconfig.web.json")
+        join(import.meta.dirname, "tsconfig.web.json")
     );
     const r = await bundler.bundle();
     // console.log(r.output)

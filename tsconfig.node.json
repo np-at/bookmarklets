@@ -14,7 +14,7 @@
   },
   "files": [
     "./playwright.config.ts",
-    "./transformer_scr.cjs"
+    "./transformer_scr.mjs"
 
   ],
   "extends": [
