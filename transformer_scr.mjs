@@ -67,7 +67,7 @@ async function compile(inputFile, minify) {
             keep_classnames: false
         });
         return {
-            code: minified.code,
+            code: formatAsBookmarklet(minified.code),
             map: minified.map
         }
 
