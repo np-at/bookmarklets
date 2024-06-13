@@ -61,4 +61,4 @@ clean-all: clean
 	rm -f .node_modules
 
 
-.PHONY: clean clean-all bookmarklets help install test all serve build lint new-bookmarklet
+.PHONY: clean clean-all bookmarklets help install test all serve build lint new-bookmarklet _site

@@ -12,22 +12,18 @@
     "noEmit": false,
     "checkJs": true
   },
-  "typeAcquisition": {
-    "enable": true
-  },
   "files": [
     "./playwright.config.ts",
-    "./transformer_scr.mjs"
+    "./transformer_scr.cjs"
 
   ],
   "extends": [
     "./tsconfig.base.json"
   ],
   "include": [
-    "./src/scripts/**/*.ts"
-  ],
+    "src/scripts/**/*.ts"],
   "exclude": [
     "node_modules",
-    "./src/scripts/web.ts"
+    "src/scripts/web.ts"
   ]
 }
