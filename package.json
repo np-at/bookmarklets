@@ -28,6 +28,9 @@
       "htmlnano": "2.0.3"
     }
   },
+  "optionalDependencies": {
+    "@parcel/watcher-linux-x64-glibc": "^2.4.1"
+  },
   "devDependencies": {
     "@parcel/plugin": "^2.12.0",
     "@parcel/resolver-default": "^2.12.0",
