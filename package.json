@@ -29,7 +29,8 @@
     }
   },
   "optionalDependencies": {
-    "@parcel/watcher-linux-x64-glibc": "^2.4.1"
+    "@parcel/watcher-linux-x64-glibc": "^2.4.1",
+    "@swc/core-linux": "^1.2.42"
   },
   "devDependencies": {
     "@parcel/plugin": "^2.12.0",
