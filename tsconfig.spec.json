@@ -6,8 +6,6 @@
     "esModuleInterop": true
 
   },
-  "exclude": [    "./src/**/*.ts"
-  ],
   "extends": ["./tsconfig.base.json"],
   "include": [ "./src/**/*.spec.ts","src/**/*.test.ts","jest.config.js", "tests/**/*.ts"]
 }
