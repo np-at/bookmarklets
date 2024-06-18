@@ -46,7 +46,7 @@ function handleFocusChange(_event: FocusEvent): void {
   if (rect.top && rect.left) {
     focusTrace.push([
       rect.left + rect.width / 3 + (document.scrollingElement?.scrollLeft ?? 0),
-      rect.top + rect.height / 3 + (document.scrollingElement?.scrollTop ?? 0)
+      rect.top + rect.height / 3 + (document.scrollingElement?.scrollTop ?? 0),
     ]);
   }
   // console.log("focus array ", focusTrace);
@@ -60,9 +60,7 @@ function redrawSelectionBoxes(_event: Event | FocusEvent): void {
 }
 
 function clearCurrentSelectionBoxes(): void {
-  const nodes = document.querySelectorAll(
-    "div.bounding-rect, div.segment-rect"
-  );
+  const nodes = document.querySelectorAll("div.bounding-rect, div.segment-rect");
   for (let i = 0; i < nodes.length; i++) {
     nodes[i].parentNode?.removeChild(nodes[i]);
   }
@@ -99,11 +97,7 @@ function clearArrowSvgs(): void {
   //   r.forEach(x => x.remove());
 }
 
-function createArrowSvg(
-  c1: number[],
-  c2: number[],
-  svg: HTMLElement | null
-): void {
+function createArrowSvg(c1: number[], c2: number[], svg: HTMLElement | null): void {
   const dX = c2[0] - c1[0];
   const dY = c2[1] - c1[1];
   if (isNaN(dX) || isNaN(dY)) return;
@@ -120,10 +114,7 @@ function createArrowSvg(
 
   // Arrowhead
   const angleOffset = Math.PI / 6;
-  const triSideLength = Math.max(
-    Math.min(Math.sqrt(dX * dX + dY * dY) / 10, 50),
-    20
-  );
+  const triSideLength = Math.max(Math.min(Math.sqrt(dX * dX + dY * dY) / 10, 50), 20);
   // console.log("trisidelength: ", triSideLength);
   const angle = Math.atan(dY / dX) + (Math.sign(dX) === -1 ? 0 : -1 * Math.PI);
   // console.log("angle: ", angle * 180 / Math.PI / 2);
@@ -133,17 +124,11 @@ function createArrowSvg(
   const y4 = triSideLength * Math.sin(angle - angleOffset) + c2[1];
 
   // console.log("x3,y3", [x3, y3]);
-  const triangle = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "polygon"
-  );
+  const triangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
   triangle.setAttribute("points", `${c2[0]},${c2[1]} ${x3},${y3} ${x4},${y4}`);
   triangle.setAttribute("fillcolor", "blue");
   if (svg == null) {
-    const newSvg: SVGElement = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
+    const newSvg: SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     newSvg.setAttribute("version", "1.1");
     newSvg.setAttribute("aria-hidden", "true");
     // svg.classList.add("rootFocusSvg");
@@ -174,11 +159,7 @@ function drawFocusTraceArrows(): void {
   // console.log("current array:", focusTrace);
   if (focusTrace.length < 2) return;
   const svg = document.getElementById("rootSvg");
-  createArrowSvg(
-    focusTrace[focusTrace.length - 2],
-    focusTrace[focusTrace.length - 1],
-    svg
-  );
+  createArrowSvg(focusTrace[focusTrace.length - 2], focusTrace[focusTrace.length - 1], svg);
   // const r = document.querySelector('svg#rootFocusSvg');
   // for (let i = 1; i < focusTrace.length; i++) {
   //   createArrowSvg(focusTrace[i - 1], focusTrace[i], null);

@@ -26,7 +26,6 @@ import MakeSkele from "marklet:../marklets/MakeSkele.ts";
 import ShowImageAlt from "marklet:../marklets/ShowImageAlt";
 import "./style.css";
 
-
 // const asdf = "asdf"
 // // END: import scripts
 const root = document.querySelector("#root");
@@ -43,7 +42,6 @@ const makeLink = (x: string, name: string): void => {
 // START: add links
 // makeLink(asdf, "asdf")
 makeLink(ShowImageAlt, "ShowImageAlt");
-
 makeLink(fcs, "fcs");
 makeLink(Axify, "Axify");
 makeLink(ForceFocusOutline, "ForceFocusOutline");

@@ -29,9 +29,7 @@ function cleanCode(c: string): string {
   return c.trim();
 }
 const formatAsBookmarklet: (code: string) => string = (code: string) =>
-  "javascript:" +
-  encodeURIComponent("(function(){" + cleanCode(code)) +
-  "})();";
+  "javascript:" + encodeURIComponent("(function(){" + cleanCode(code)) + "})();";
 
 // async function compile(fileNames: string[], options: ts.CompilerOptions) {
 //     let program = ts.createProgram(fileNames, options);
@@ -90,10 +88,7 @@ const formatAsBookmarklet: (code: string) => string = (code: string) =>
   const inputFiles = await glob(inputFile);
   console.log("input files: ", inputFiles);
   for (const input of inputFiles) {
-    const bundler = new TypescriptBundler(
-      input,
-      join(__dirname, "..", "..", "tsconfig.web.json")
-    );
+    const bundler = new TypescriptBundler(input, join(__dirname, "..", "..", "tsconfig.web.json"));
     const r = await bundler.bundle();
     // console.log(r.output)
     let codeOutput: string | undefined;
@@ -126,15 +121,10 @@ const formatAsBookmarklet: (code: string) => string = (code: string) =>
     } else {
       codeOutput = r.output;
     }
-    const outFile =
-      outputFile ?? join(repoRoot, "dist", basename(input, ".ts") + ".js");
+    const outFile = outputFile ?? join(repoRoot, "dist", basename(input, ".ts") + ".js");
 
     console.log("writing to: ", outFile);
-    codeOutput &&
-      (await fs.writeFile(
-        outFile,
-        urlencode ? formatAsBookmarklet(codeOutput) : codeOutput
-      ));
+    codeOutput && (await fs.writeFile(outFile, urlencode ? formatAsBookmarklet(codeOutput) : codeOutput));
   }
 })().then(
   (_) => {
@@ -143,7 +133,7 @@ const formatAsBookmarklet: (code: string) => string = (code: string) =>
   },
   (rej) => {
     console.warn("rejected: ", rej);
-  }
+  },
 );
 // compile([ags[0]], {
 //     noEmitOnError: true,

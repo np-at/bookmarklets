@@ -115,9 +115,7 @@ collapseButton.addEventListener("click", () => {
   const newAriaExpanded = oldariaExpanded === "false" ? "true" : "false";
   resultsContainer.setAttribute("aria-expanded", newAriaExpanded);
 
-  resultsContainer.style.display = `${
-    newAriaExpanded === "true" ? "block" : "none"
-  }`;
+  resultsContainer.style.display = `${newAriaExpanded === "true" ? "block" : "none"}`;
 });
 controlsContainer.appendChild(collapseButton);
 
@@ -132,7 +130,7 @@ closeButton.addEventListener(
   () => {
     displayContainer.remove();
   },
-  { once: true }
+  { once: true },
 );
 function closeOnEscape(e: KeyboardEvent): void {
   if (e.key === "Escape") {
@@ -187,20 +185,8 @@ const displaytemplate = (mutation: MutationRecord): string => {
         ${attr ? `<div>attribute: ${attr}</div>` : ""}
         ${value ? `<div>value: ${value}</div>` : ""}
         ${oldValue ? `<div>oldValue: ${oldValue}</div>` : ""}
-        ${
-          addedNodes.length
-            ? `<div>addedNodes: ${addedNodes
-                .map((x) => x.nodeName)
-                .join(", ")}</div>`
-            : ""
-        }
-        ${
-          removedNodes.length
-            ? `<div>removedNodes: ${removedNodes
-                .map((x) => x.nodeName)
-                .join(", ")}</div>`
-            : ""
-        }
+        ${addedNodes.length ? `<div>addedNodes: ${addedNodes.map((x) => x.nodeName).join(", ")}</div>` : ""}
+        ${removedNodes.length ? `<div>removedNodes: ${removedNodes.map((x) => x.nodeName).join(", ")}</div>` : ""}
         ${textContent ? `<div>textContent: ${textContent}</div>` : ""}
         ${oldTextContent ? `<div>oldTextContent: ${oldTextContent}</div>` : ""}
     </div>
@@ -209,10 +195,7 @@ const displaytemplate = (mutation: MutationRecord): string => {
 };
 
 function drawHighlightOverlay(element: HTMLElement): void {
-  ping(
-    element.offsetLeft + element.offsetWidth / 2,
-    element.offsetTop + element.offsetHeight / 2
-  );
+  ping(element.offsetLeft + element.offsetWidth / 2, element.offsetTop + element.offsetHeight / 2);
   const overlay = document.createElement("div");
   overlay.setAttribute("aria-hidden", "true");
   overlay.setAttribute("data-aria-live-monitor", "true");
@@ -224,8 +207,7 @@ function drawHighlightOverlay(element: HTMLElement): void {
   overlay.style.zIndex = "1000";
   // overlay.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
   overlay.style.pointerEvents = "none";
-  overlay.style.background =
-    "transparent radial-gradient(circle, transparent 1%, #47a7f5 94%) center";
+  overlay.style.background = "transparent radial-gradient(circle, transparent 1%, #47a7f5 94%) center";
   // overlay.style.animation = 'pulse 2s infinite';
   overlay.className = "ripple";
   // overlay.style.boxShadow = "0 0 0 0.5rem rgba(255, 0, 0, 0.5)";
@@ -253,16 +235,12 @@ const mutationObserverCallback: MutationCallback = (mutations, _observer) => {
   }
   if (resultsContainer.childElementCount > 4) {
     while (resultsContainer.childElementCount > 4) {
-      if (resultsContainer.lastElementChild)
-        resultsContainer.removeChild(resultsContainer.lastElementChild);
+      if (resultsContainer.lastElementChild) resultsContainer.removeChild(resultsContainer.lastElementChild);
     }
   }
   mutations.forEach((mutation) => {
     drawHighlightOverlay(mutation.target as HTMLElement);
-    resultsContainer.insertAdjacentHTML(
-      "afterbegin",
-      displaytemplate(mutation)
-    );
+    resultsContainer.insertAdjacentHTML("afterbegin", displaytemplate(mutation));
     if (mutation.type === "childList") {
       console.debug("mutation: ", mutation);
       // const target = mutation.target as HTMLElement;
@@ -275,9 +253,7 @@ const mutationObserverCallback: MutationCallback = (mutations, _observer) => {
           console.debug("text node added: ", x.textContent);
         } else if (x.nodeType === Node.ELEMENT_NODE) {
           console.debug("element node added: ", x);
-          const liveregions = Array.from(
-            (x as HTMLElement).querySelectorAll("[aria-live]")
-          );
+          const liveregions = Array.from((x as HTMLElement).querySelectorAll("[aria-live]"));
           liveregions && console.debug("found regions: ", liveregions);
           liveregions.forEach((x) => {
             if (monitoredNodes.includes(x)) {
@@ -295,9 +271,7 @@ const mutationObserverCallback: MutationCallback = (mutations, _observer) => {
           console.debug("text node removed: ", x.textContent);
         } else if (x.nodeType === Node.ELEMENT_NODE) {
           console.debug("element node removed: ", x);
-          const liveregions = Array.from(
-            (x as HTMLElement).querySelectorAll("[aria-live]")
-          );
+          const liveregions = Array.from((x as HTMLElement).querySelectorAll("[aria-live]"));
           liveregions && console.debug("found regions: ", liveregions);
           liveregions.forEach((x) => {
             if (monitoredNodes.includes(x)) {
@@ -341,10 +315,7 @@ const mutationObserverCallback: MutationCallback = (mutations, _observer) => {
 const monitoredNodes: Element[] = [];
 
 // apply callback to shadow roots
-function applyToShadowRoots(
-  startNode: Element,
-  callback: (root: ShadowRoot) => void
-): void {
+function applyToShadowRoots(startNode: Element, callback: (root: ShadowRoot) => void): void {
   startNode.querySelectorAll("*").forEach((x) => {
     x.shadowRoot && callback(x.shadowRoot);
   });

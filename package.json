@@ -11,7 +11,8 @@
     "build-bookmarklets": "tsx src/scripts/main.ts --input 'src/marklets/*.ts'",
     "debug": "ts-node src/scripts/main.ts --input 'src/marklets/MakeSkele.ts' --output 'dist/MakeSkele.js'",
     "lint": "eslint --ext .ts ./",
-    "lint:fix": "eslint --fix --ext .ts ./"
+    "lint:fix": "eslint --fix --ext .ts ./",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",

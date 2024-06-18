@@ -49,9 +49,7 @@ function TextSpacing(): void {
     d.getElementsByTagName("head")[0].appendChild(s);
     for (i = 0; i < l; i++) {
       try {
-        f[i].contentWindow?.document
-          .getElementsByTagName("head")[0]
-          .appendChild(s.cloneNode(true));
+        f[i].contentWindow?.document.getElementsByTagName("head")[0].appendChild(s.cloneNode(true));
         applyToShadows(f[i].contentWindow?.document);
       } catch (e) {
         console.log(e);

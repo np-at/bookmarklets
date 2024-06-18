@@ -1,11 +1,14 @@
-import {run} from "axe-core"
+import { run } from "axe-core";
 
-
-run(document, {
+run(
+  document,
+  {
     rules: {
-        "color-contrast": {enabled: true},
-    }
-}, (err, results) => {
+      "color-contrast": { enabled: true },
+    },
+  },
+  (err, results) => {
     if (err) throw err;
     console.log(results.violations);
-})
+  },
+);

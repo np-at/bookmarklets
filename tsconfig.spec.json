@@ -6,10 +6,12 @@
     "esModuleInterop": true,
     "composite": true
   },
-  "references": [{
-    "path": "./tsconfig.web.json"
-  }],
+  "references": [
+    {
+      "path": "./tsconfig.web.json"
+    }
+  ],
   "extends": ["./tsconfig.base.json"],
-  "exclude": ["node_modules","dist"],
-  "include": [ "./src/**/*.spec.ts","src/**/*.test.ts","jest.config.js", "tests/**/*.ts"]
+  "exclude": ["node_modules", "dist"],
+  "include": ["./src/**/*.spec.ts", "src/**/*.test.ts", "jest.config.js", "tests/**/*.ts"]
 }

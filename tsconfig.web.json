@@ -1,13 +1,8 @@
 {
-  "extends":
-    "./tsconfig.base.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "target": "ES2022",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
@@ -18,14 +13,7 @@
   //    "./**/*.spec.ts",
   //    "./**/*.test.ts",
   //  ],
-  "files": [    "src/scripts/web.ts"],
+  "files": ["src/scripts/web.ts"],
   "exclude": ["node_modules", "dist", "tests"],
-  "include": [
-    "src/Element.d.ts",
-    "src/marklets/*.ts",
-    "./aria-api.d.ts",
-    "src/utils/*.ts",
-    "src/utils/finder.ts",
-    "./tests/**/*.ts"
-  ]
+  "include": ["src/Element.d.ts", "src/marklets/*.ts", "./aria-api.d.ts", "src/utils/*.ts", "src/utils/finder.ts", "./tests/**/*.ts"]
 }

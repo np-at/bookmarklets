@@ -4,33 +4,33 @@
 
 // ImageCheck
 
-import {containsAny} from "../utils/stringUtils";
+import { containsAny } from "../utils/stringUtils";
 
 // function containsAny<T>(collection: T[], ...items: T[]): boolean {
 //     return items.some((i) => collection.includes(i));
 // }
 
 const invalidAltRegexes = [
-    /^img.*/,
-    /^image.*/,
-    /^picture.*/,
-    /^photo.*/,
-    /^photograph.*/,
-    /^photography.*/,
-    /^graphic.*/,
-    /^\s*alt/,
-    /^\s+$/,
-    /=/,
+  /^img.*/,
+  /^image.*/,
+  /^picture.*/,
+  /^photo.*/,
+  /^photograph.*/,
+  /^photography.*/,
+  /^graphic.*/,
+  /^\s*alt/,
+  /^\s+$/,
+  /=/,
 ];
 
 function testInvalidAltAttr(attr: string): boolean {
-    return invalidAltRegexes.some((x) => x.test(attr));
+  return invalidAltRegexes.some((x) => x.test(attr));
 }
 
 function testValidAltAttributes(rootEl: HTMLElement): HTMLElement[] {
-    console.log("testValidAltAttributes")
-    const images = Array.from(rootEl.querySelectorAll("img"));
-    return images.filter((x) => !x.alt || testInvalidAltAttr(x.alt));
+  console.log("testValidAltAttributes");
+  const images = Array.from(rootEl.querySelectorAll("img"));
+  return images.filter((x) => !x.alt || testInvalidAltAttr(x.alt));
 }
 
 // const $: (aAltButtonAltLabelAlt: string) => HTMLElement = (aAltButtonAltLabelAlt: string) => {
@@ -167,7 +167,6 @@ function testValidAltAttributes(rootEl: HTMLElement): HTMLElement[] {
 //     document.body.appendChild(s);
 //     console.log("created script el")
 // }
-
 
 const _invalid = testValidAltAttributes(document.body);
 console.log(_invalid);

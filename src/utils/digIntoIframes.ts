@@ -1,7 +1,4 @@
-export function digIntoIframes(
-  root: Document | ShadowRoot,
-  fxn: (arg0: Document) => void
-): void {
+export function digIntoIframes(root: Document | ShadowRoot, fxn: (arg0: Document) => void): void {
   for (const el of Array.from(root.querySelectorAll("iframe"))) {
     if (el.contentDocument) {
       fxn(el.contentDocument);

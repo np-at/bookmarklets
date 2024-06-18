@@ -1,6 +1,6 @@
 import { finder } from "../utils/finder";
 
-const nonSemanticTags = ['SCRIPT', 'HEAD'];
+const nonSemanticTags = ["SCRIPT", "HEAD"];
 
 function strToHash(str?: string | null): number {
   return hashCode(str ?? "");
@@ -25,7 +25,7 @@ interface HashData {
   sum?: number;
 }
 
-declare interface LinkElement extends Element  {
+declare interface LinkElement extends Element {
   hash_data?: HashData;
 }
 
@@ -71,22 +71,23 @@ interface NodeRep {
   childrenHash?: number;
   children: NodeRep[];
   sel?: string;
-
 }
 function makeNodeRep(el: LinkElement): NodeRep {
-  const rep: NodeRep =  {
+  const rep: NodeRep = {
     tag: el.tagName,
     hash: el.hash_data?.sum?.toString(16) ?? "none",
     hash_num: el.hash_data?.sum,
-    children: Array.from(el.children).filter(x=>!nonSemanticTags.includes(x.tagName)).map((el) => hashNode(el)),
+    children: Array.from(el.children)
+      .filter((x) => !nonSemanticTags.includes(x.tagName))
+      .map((el) => hashNode(el)),
     attrHash: el.hash_data?.attrHash,
     childrenHash: el.hash_data?.childrenHash,
     textHash: el.hash_data?.textHash,
-    sel: finder(el)
-  }
-  return rep
+    sel: finder(el),
+  };
+  return rep;
 }
-function hashNode(el: LinkElement):NodeRep {
+function hashNode(el: LinkElement): NodeRep {
   if (typeof el.hash_data?.sum !== "undefined") {
     return makeNodeRep(el);
   }
@@ -100,17 +101,9 @@ function hashNode(el: LinkElement):NodeRep {
     typeof el.hash_data?.childrenHash === "undefined" ||
     typeof el.hash_data?.textHash === "undefined"
   ) {
-    throw new Error(
-      `hash_data is missing a value. This should not happen. ${JSON.stringify(
-        el.hash_data
-      )}`
-    );
+    throw new Error(`hash_data is missing a value. This should not happen. ${JSON.stringify(el.hash_data)}`);
   }
-  el.hash_data.sum =
-    strToHash(el.tagName) +
-    el.hash_data.attrHash +
-    el.hash_data.childrenHash +
-    el.hash_data.textHash;
+  el.hash_data.sum = strToHash(el.tagName) + el.hash_data.attrHash + el.hash_data.childrenHash + el.hash_data.textHash;
   // console.log(el.hash_data?.sum?.toString(16), el);
   el.setAttribute("data-hash", el.hash_data.sum.toString(16));
 
@@ -136,13 +129,10 @@ function hashChildren(el: LinkElement): LinkElement {
       case Node.ELEMENT_NODE:
         if (child instanceof Element) {
           // Filter out non-semantic tags
-          if (nonSemanticTags.includes(child.tagName))
-            continue;
+          if (nonSemanticTags.includes(child.tagName)) continue;
           childrenNodeHash += hashNode(child).hash_num ?? 0;
         } else {
-          throw new Error(
-            "Node has nodeType of ELEMENT_NODE but is not an LinkElement"
-          );
+          throw new Error("Node has nodeType of ELEMENT_NODE but is not an LinkElement");
         }
         break;
       case Node.COMMENT_NODE:
@@ -169,7 +159,6 @@ function MakeSkele(root: LinkElement): void {
   // Array.from(root.children).forEach((el) => {
   //   hashNode(el);
   // })
-
 }
 
 MakeSkele(document.body);

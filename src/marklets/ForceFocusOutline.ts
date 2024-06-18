@@ -1,4 +1,4 @@
-import {applyToShadows} from "../utils/applyToShadows";
+import { applyToShadows } from "../utils/applyToShadows";
 
 // eslint-disable-next-line n/no-exports-assign
 exports = {};
@@ -26,9 +26,7 @@ function ForceFocusOutline(): void {
         try {
           f[i].contentWindow?.document.getElementById(id)?.remove();
           // remove from shadow roots
-          applyToShadows(f[i].contentWindow?.document, (root) =>
-            root.getElementById(id)?.remove()
-          );
+          applyToShadows(f[i].contentWindow?.document, (root) => root.getElementById(id)?.remove());
           // removeFromShadows(f[i].contentWindow?.document);
         } catch (e) {
           console.log(e);
@@ -39,8 +37,7 @@ function ForceFocusOutline(): void {
   } else {
     const s = d.createElement("style");
     s.id = id;
-    s.innerText =
-      ":focus{outline:5px solid #F07 !important;z-index:10000 !important;}";
+    s.innerText = ":focus{outline:5px solid #F07 !important;z-index:10000 !important;}";
 
     // function applyToShadows(root: Document | ShadowRoot | undefined): void {
     //   for (const el of root?.querySelectorAll("*") ?? []) {
@@ -54,12 +51,8 @@ function ForceFocusOutline(): void {
     d.getElementsByTagName("head")[0].appendChild(s);
     for (i = 0; i < l; i++) {
       try {
-        f[i].contentWindow?.document
-          .getElementsByTagName("head")[0]
-          .appendChild(s.cloneNode(true));
-        applyToShadows(f[i].contentWindow?.document, (root) =>
-          root.appendChild(s.cloneNode(true))
-        );
+        f[i].contentWindow?.document.getElementsByTagName("head")[0].appendChild(s.cloneNode(true));
+        applyToShadows(f[i].contentWindow?.document, (root) => root.appendChild(s.cloneNode(true)));
       } catch (e) {
         console.log(e);
       }
