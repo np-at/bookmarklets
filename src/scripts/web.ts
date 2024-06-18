@@ -1,16 +1,29 @@
-import fcs from "marklet:../marklets/fcs.ts"
-import Axify from "marklet:../marklets/Axify.ts"
-import ForceFocusOutline from "marklet:../marklets/ForceFocusOutline.ts"
-import TextSpacing from "marklet:../marklets/TextSpacing.ts"
-import AriaLiveObserver from "marklet:../marklets/MonitorAriaLive.ts"
-import ShowHeadings from "marklet:../marklets/showHeadings.ts"
-import FindDuplicateIds from "marklet:../marklets/FindDuplicateIds.ts"
-import HoverTest from "marklet:../marklets/HoverTest.ts"
-import IdentifyExplicitNames from "marklet:../marklets/IdentifyExplicitNames.ts"
-import ImageChecker from "marklet:../marklets/ImageCheck.ts"
-import Pathify from "marklet:../marklets/Pathify.ts"
-import MakeSkele from "marklet:../marklets/MakeSkele.ts"
-import ShowImageAlt from "marklet:../marklets/ShowImageAlt"
+// @ts-expect-error TS2307
+import fcs from "marklet:../marklets/fcs.ts";
+// @ts-expect-error TS2307
+import Axify from "marklet:../marklets/Axify.ts";
+// @ts-expect-error TS2307
+import ForceFocusOutline from "marklet:../marklets/ForceFocusOutline.ts";
+// @ts-expect-error TS2307
+import TextSpacing from "marklet:../marklets/TextSpacing.ts";
+// @ts-expect-error TS2307
+import AriaLiveObserver from "marklet:../marklets/MonitorAriaLive.ts";
+// @ts-expect-error TS2307
+import ShowHeadings from "marklet:../marklets/showHeadings.ts";
+// @ts-expect-error TS2307
+import FindDuplicateIds from "marklet:../marklets/FindDuplicateIds.ts";
+// @ts-expect-error TS2307
+import HoverTest from "marklet:../marklets/HoverTest.ts";
+// @ts-expect-error TS2307
+import IdentifyExplicitNames from "marklet:../marklets/IdentifyExplicitNames.ts";
+// @ts-expect-error TS2307
+import ImageChecker from "marklet:../marklets/ImageCheck.ts";
+// @ts-expect-error TS2307
+import Pathify from "marklet:../marklets/Pathify.ts";
+// @ts-expect-error TS2307
+import MakeSkele from "marklet:../marklets/MakeSkele.ts";
+// @ts-expect-error TS2307
+import ShowImageAlt from "marklet:../marklets/ShowImageAlt";
 import "./style.css";
 
 
@@ -55,6 +68,7 @@ function generateRandomText(): string {
   }
   return randomText.join(" ");
 }
+
 //
 // setInterval(() => {
 //   try {

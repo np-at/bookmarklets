@@ -3,9 +3,13 @@
   "compilerOptions": {
     "types": ["jest"],
     "lib": ["dom", "es2022"],
-    "esModuleInterop": true
-
+    "esModuleInterop": true,
+    "composite": true
   },
+  "references": [{
+    "path": "./tsconfig.web.json"
+  }],
   "extends": ["./tsconfig.base.json"],
+  "exclude": ["node_modules","dist"],
   "include": [ "./src/**/*.spec.ts","src/**/*.test.ts","jest.config.js", "tests/**/*.ts"]
 }

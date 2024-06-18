@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "module": "commonjs",
+    "module": "ES2022",
     "outDir": "./dist",
     "types": [
       "node"
@@ -21,7 +21,8 @@
     "./tsconfig.base.json"
   ],
   "include": [
-    "src/scripts/**/*.ts"],
+    "src/scripts/**/*.ts",
+  "aria-api.d.ts"],
   "exclude": [
     "node_modules",
     "src/scripts/web.ts"

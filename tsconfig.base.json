@@ -1,17 +1,17 @@
 {
 
   "compilerOptions": {
-    "composite": true,
     "module": "commonjs",
     "target": "ES2022",
     "sourceMap": true,
     "outDir": "./dist",
     "downlevelIteration": false,
-
+    "composite": true,
     "strictNullChecks": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
+    "moduleResolution": "Node",
     "rootDir": ".",
     "sourceRoot": ".",
     "skipLibCheck": true,

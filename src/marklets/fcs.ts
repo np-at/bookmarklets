@@ -46,7 +46,7 @@ function handleFocusChange(_event: FocusEvent): void {
   if (rect.top && rect.left) {
     focusTrace.push([
       rect.left + rect.width / 3 + (document.scrollingElement?.scrollLeft ?? 0),
-      rect.top + rect.height / 3 + (document.scrollingElement?.scrollTop ?? 0),
+      rect.top + rect.height / 3 + (document.scrollingElement?.scrollTop ?? 0)
     ]);
   }
   // console.log("focus array ", focusTrace);
@@ -185,8 +185,8 @@ function drawFocusTraceArrows(): void {
   // }
 }
 
-let selectionChangeTimer: NodeJS.Timeout;
-let redrawTimer: NodeJS.Timeout;
+let selectionChangeTimer: number | undefined;
+let redrawTimer: number | undefined;
 addBoundingStyle();
 window.addEventListener("focusin", handleFocusChange, { passive: false });
 window.addEventListener("scroll", redrawSelectionBoxes, { passive: false });

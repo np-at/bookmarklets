@@ -30,9 +30,10 @@ const formatAsBookmarklet = (code) =>
  *
  * @param {string} inputFile
  * @param {boolean} minify
+ * @param {import('@parcel/types').PluginLogger | undefined} logger
  * @returns {Promise<R>}
  */
-async function compile(inputFile, minify) {
+async function compile(inputFile, minify, logger) {
     const bundler = new TypescriptBundler(
         inputFile,
         join(import.meta.dirname, "tsconfig.web.json")
@@ -44,17 +45,19 @@ async function compile(inputFile, minify) {
     if (minify) {
         const minified = await terserMinify(r.output, {
             compress: {
+                defaults:true,
+                ecma:2020,
                 keep_fnames: false,
-                // keep_fargs: false,
+                keep_fargs: false,
                 keep_classnames: false,
                 passes: 3,
                 booleans_as_integers: true,
                 drop_console: false,
 
-                side_effects: false,
+
                 toplevel: true,
             },
-            mangle: false,
+            // mangle: false,
             // mangle: {
             //   keep_fnames: false,
             //   toplevel: true,
@@ -62,10 +65,13 @@ async function compile(inputFile, minify) {
             //   properties: false,
             // },
             // toplevel: true,
-            sourceMap: true,
-            keep_fnames: false,
-            keep_classnames: false
+            sourceMap: true
         });
+        if (!minified.code) {
+
+            throw new Error("Failed to minify code");
+        }
+        logger?.info({message: `compiled ${inputFile} to ${minified.code.length} bytes; unminified: ${r.output.length} bytes`});
         return {
             code: formatAsBookmarklet(minified.code),
             map: minified.map
@@ -81,7 +87,7 @@ async function compile(inputFile, minify) {
 
 export default new Transformer({
     async transform({asset, logger}) {
-        const {code, map} = await compile(asset.filePath, true)
+        const {code, map} = await compile(asset.filePath, true, logger)
         // logger.info({message: code});
 
         // let sourceMap = await asset.getMap();
