@@ -4,8 +4,6 @@ import { Transformer } from "@parcel/plugin";
 import { TypescriptBundler } from "@puresamari/ts-bundler";
 import { minify as terserMinify } from "terser";
 import { join } from "node:path";
-import {} from "node:fs"
-import SourceMap from "@parcel/source-map";
 
 /**
  *
@@ -28,7 +26,7 @@ const formatAsBookmarklet = (code) =>
  *
  * @param {string} inputFile
  * @param {boolean} minify
- * @param {import('@parcel/types').PluginLogger | undefined} logger
+ * @param {import("@parcel/types").PluginLogger | undefined} logger
  */
 async function compile(inputFile, minify, logger) {
   const bundler = new TypescriptBundler(inputFile, join(import.meta.dirname, "tsconfig.web.json"));
@@ -47,7 +45,7 @@ async function compile(inputFile, minify, logger) {
         booleans_as_integers: true,
         drop_console: false,
 
-        toplevel: true,
+        toplevel: true
 
       },
 
@@ -61,7 +59,7 @@ async function compile(inputFile, minify, logger) {
       // toplevel: true,
       sourceMap: {
         asObject: false
-      },
+      }
     });
     if (!minified.code) {
       throw new Error("Failed to minify code");
@@ -70,11 +68,11 @@ async function compile(inputFile, minify, logger) {
 
     return {
       code: formatAsBookmarklet(minified.code),
-      map: minified.map,
+      map: minified.map
     };
   } else {
     return {
-      code: formatAsBookmarklet(r.output),
+      code: formatAsBookmarklet(r.output)
       // map: r.map
     };
   }
@@ -82,8 +80,9 @@ async function compile(inputFile, minify, logger) {
 
 export default new Transformer({
   async transform({ asset, logger }) {
-    if (asset.filePath)
+
     const { code, map } = await compile(asset.filePath, true, logger);
+
     // logger.info({message: code});
 
     // let sourceMap = await asset.getMap();
@@ -99,5 +98,5 @@ export default new Transformer({
 
     // Return the asset
     return [asset];
-  },
+  }
 });
