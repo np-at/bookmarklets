@@ -1,7 +1,7 @@
 import { applyToShadows } from "../utils/applyToShadows";
 
 // eslint-disable-next-line n/no-exports-assign
-exports = {};
+
 
 function ForceFocusOutline(): void {
   const d = document;
@@ -10,7 +10,7 @@ function ForceFocusOutline(): void {
   const f = d.querySelectorAll("iframe");
   let i = 0;
   const l = f.length;
-  if (el) {
+  if (el != null) {
     const removeFromShadows = (root: Document | ShadowRoot | undefined): void => {
       for (const el of Array.from(root?.querySelectorAll("*") ?? [])) {
         if (el.shadowRoot) {
@@ -21,7 +21,7 @@ function ForceFocusOutline(): void {
     };
 
     el.remove();
-    if (l) {
+    if (l !== 0) {
       for (i = 0; i < l; i++) {
         try {
           f[i].contentWindow?.document.getElementById(id)?.remove();

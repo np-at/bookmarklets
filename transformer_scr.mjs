@@ -4,6 +4,8 @@ import { Transformer } from "@parcel/plugin";
 import { TypescriptBundler } from "@puresamari/ts-bundler";
 import { minify as terserMinify } from "terser";
 import { join } from "node:path";
+import {} from "node:fs"
+import SourceMap from "@parcel/source-map";
 
 /**
  *
@@ -22,13 +24,11 @@ function cleanCode(c) {
 const formatAsBookmarklet = (code) =>
   "'javascript:" + encodeURIComponent("(function(){" + cleanCode(code)).replace(/(['])/g, "\\$1") + "})();'";
 
-/** @typedef {{code: string | undefined, map?: string | any}} R */
 /**
  *
  * @param {string} inputFile
  * @param {boolean} minify
  * @param {import('@parcel/types').PluginLogger | undefined} logger
- * @returns {Promise<R>}
  */
 async function compile(inputFile, minify, logger) {
   const bundler = new TypescriptBundler(inputFile, join(import.meta.dirname, "tsconfig.web.json"));
@@ -48,7 +48,9 @@ async function compile(inputFile, minify, logger) {
         drop_console: false,
 
         toplevel: true,
+
       },
+
       // mangle: false,
       // mangle: {
       //   keep_fnames: false,
@@ -57,12 +59,15 @@ async function compile(inputFile, minify, logger) {
       //   properties: false,
       // },
       // toplevel: true,
-      sourceMap: true,
+      sourceMap: {
+        asObject: false
+      },
     });
     if (!minified.code) {
       throw new Error("Failed to minify code");
     }
     logger?.info({ message: `compiled ${inputFile} to ${minified.code.length} bytes; unminified: ${r.output.length} bytes` });
+
     return {
       code: formatAsBookmarklet(minified.code),
       map: minified.map,
@@ -77,6 +82,7 @@ async function compile(inputFile, minify, logger) {
 
 export default new Transformer({
   async transform({ asset, logger }) {
+    if (asset.filePath)
     const { code, map } = await compile(asset.filePath, true, logger);
     // logger.info({message: code});
 
@@ -86,8 +92,8 @@ export default new Transformer({
     // on the asset.
     // let {code, map} = compile(source, sourceMap);
     if (code) asset.setCode(code);
-    // if (map)
-    //     asset.setMap(map);
+    // if (map && typeof map === 'string')
+    //     asset.setMap(new SourceMap('',Buffer.from(map)));
     asset.type = "string";
     asset.bundleBehavior = "inline";
 

@@ -6,7 +6,7 @@ function IdentifyLabelTargets(x: HTMLLabelElement): HTMLElement | undefined {
   // this overrides implicit labelling, so we can just return the targeted element
   if (x.htmlFor) {
     const t = document.getElementById(x.htmlFor);
-    if (t) {
+    if (t != null) {
       return t;
     }
     console.warn("label has invalid for attribute, ", x);
@@ -65,7 +65,7 @@ function IdentifyExplicitNames(target: HTMLElement): boolean {
     .map(IdentifyLabelTargets)
     .map(
       (x) =>
-        x && {
+        (x != null) && {
           name: getName(x),
           labellingMethod: Labelling.externalLabel,
           target: x,
