@@ -24,6 +24,8 @@ import Pathify from "marklet:../marklets/Pathify.ts";
 import MakeSkele from "marklet:../marklets/MakeSkele.ts";
 // @ts-expect-error TS2307
 import ShowImageAlt from "marklet:../marklets/ShowImageAlt";
+
+import DupeId from "marklet:../marklets/dupeIdCheck.ts";
 import "./style.css";
 
 // const asdf = "asdf"
@@ -54,7 +56,7 @@ makeLink(IdentifyExplicitNames, "IdentifyExplicitNames");
 makeLink(ImageChecker, "ImageChecker");
 makeLink(Pathify, "Pathify");
 makeLink(MakeSkele, "MakeSkele");
-
+makeLink(DupeId, "DupeId");
 // END: add links
 
 // random text generator
