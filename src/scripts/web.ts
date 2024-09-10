@@ -38,7 +38,9 @@ const makeLink = (x: string, name: string): void => {
   const anchorElement = document.createElement("a");
   anchorElement.href = x;
   anchorElement.innerText = name;
+  anchorElement.id = "asdfas"
   root.appendChild(anchorElement);
+
 };
 
 // START: add links

@@ -41,30 +41,50 @@ export function ensureBoundingStyleAvailable(): void {
 }
 export type DrawStyleProps = Partial<CSSStyleDeclaration>;
 const defaultStyle: DrawStyleProps = {
-  backgroundColor: "black",
+  backgroundColor: "transparent",
   color: "white",
   borderColor: "black",
   borderWidth: "2px",
   borderStyle: "solid",
+  outline: "2px solid white",
 };
-export function drawBox(element: HTMLElement, utilityName: string, content: string, style?: DrawStyleProps): void {
+/**
+ * Draws a box around the specified element with optional content and styling.
+ *
+ * @param {HTMLElement} element - The HTML element around which the box will be drawn.
+ * @param {string} utilityName - A name to associate with the utility.
+ * @param {string} [content] - Optional content to display inside the box.
+ * @param {DrawStyleProps} [style] - Optional styles to apply to the box.
+ * @param {string} [id] - Optional ID to assign to the box element. If assigned, an element with the same ID will be removed before drawing the new box.
+ */
+
+export function drawBox(element: HTMLElement, utilityName: string, content?: string, style?: DrawStyleProps, id?: string): void {
+  document.getElementById(id)?.remove();
   const blockDiv = document.createElement("div");
+  if (id)
+    blockDiv.id = id ;
   const coords = element.getBoundingClientRect();
+  console.log("el", element)
+  console.log("coords", coords);
   blockDiv.setAttribute("rel", utilityName);
   blockDiv.className = "segment-rect";
-  blockDiv.style.left = `${coords.x + coords.width / 2 - 100}px`;
-  blockDiv.style.top = `${coords.y + coords.height / 2 - 10}px`;
+  blockDiv.style.left = `${coords.left}px`//`${coords.x + (coords.width / 2) - 100}px`;
+  blockDiv.style.top = `${coords.top}px` //`${coords.y + (coords.height / 2) - 10}px`;
+  blockDiv.style.width = `${coords.width}px`;
+  blockDiv.style.height = `${coords.height}px`;
   blockDiv.style.position = "absolute";
   blockDiv.style.zIndex = "10000";
   blockDiv.style.display = "block";
-  blockDiv.style.maxWidth = `${coords.width / 2}px`;
-  blockDiv.style.minWidth = "200px";
+  blockDiv.style.maxWidth = `${coords.width}px`;
+  blockDiv.style.maxHeight = `${coords.height}px`;
+  // blockDiv.style.minWidth = "200px";
   blockDiv.style.overflowWrap = "break-word";
-  blockDiv.style.padding = "1em";
+  blockDiv.style.padding = "0px";
+  blockDiv.style.pointerEvents = "none";
   Object.assign(blockDiv.style, defaultStyle, style);
   // blockDiv.style.backgroundColor = style?.backgroundColor ?? 'black';
   // blockDiv.style.color = style?.color ?? 'white';
   // blockDiv.style.border = `2px solid ${style?.borderColor ?? 'black'}`;
-  blockDiv.innerText = content.toString();
+  blockDiv.innerText = content ?? "";
   document.body.appendChild(blockDiv);
 }

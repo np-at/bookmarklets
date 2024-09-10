@@ -1,3 +1,5 @@
+import { drawBox, drawFocusBox } from "../utils/drawUtils";
+
 function makeDisplay(): HtmlDivElement {
   const existingDisplay = document.getElementById("a11y-bookmarklet");
   if (existingDisplay) {
@@ -83,10 +85,20 @@ if (duplicates.size === 0) {
     header.after(list);
     v.forEach((x) => {
       const p = document.createElement("li");
+      p.addEventListener("mouseover", () => {
+        drawBox(x, "DupeId", undefined, undefined, "dupIdBox");
+        // drawFocusBox(x);
+      })
       p.style.display = "list-item";
-      p.innerText = x.innerHTML.length > 100 ? x.outerHTML.replace(x.innerHTML,'...') : x.outerHTML;
+      p.innerText = truncateString(x.innerHTML.length > 100 ? x.outerHTML.replace(x.innerHTML,'...') : x.outerHTML, 50)
       list.appendChild(p);
     });
     topList.appendChild(l);
   });
+}
+function truncateString(str: string, num: number): string {
+  if (str.length <= num) {
+    return str;
+  }
+  return str.slice(0, num) + "...";
 }
