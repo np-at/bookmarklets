@@ -36,6 +36,7 @@ async function compile(inputFile, minify, logger) {
   if (minify) {
     const minified = await terserMinify(r.output, {
       compress: {
+        dead_code: true,
         defaults: true,
         ecma: 2020,
         keep_fnames: false,
@@ -44,22 +45,32 @@ async function compile(inputFile, minify, logger) {
         passes: 3,
         booleans_as_integers: true,
         drop_console: false,
-
-        toplevel: true
+        expression: true,
+        module: true,
+        toplevel: true,
 
       },
 
-      // mangle: false,
-      // mangle: {
-      //   keep_fnames: false,
-      //   toplevel: true,
-      //   keep_classnames: false,
-      //   properties: false,
-      // },
+
+      // mangle: true,
+      mangle: {
+        keep_fnames: false,
+        toplevel: true,
+        keep_classnames: false,
+        properties: false,
+        module: true,
+
+      },
       // toplevel: true,
       sourceMap: {
         asObject: false
       }
+      // format: {
+      //   ecma: 2020,
+      //   comments: false,
+      //
+      // }
+
     });
     if (!minified.code) {
       throw new Error("Failed to minify code");
@@ -91,6 +102,7 @@ export default new Transformer({
     // on the asset.
     // let {code, map} = compile(source, sourceMap);
     if (code) asset.setCode(code);
+    // asset.addDependency({specifierType:'esm', specifier: '@puresamari/ts-bundler', pipeline: 'ts', isOptional: false});
     // if (map && typeof map === 'string')
     //     asset.setMap(new SourceMap('',Buffer.from(map)));
     asset.type = "string";
@@ -99,4 +111,5 @@ export default new Transformer({
     // Return the asset
     return [asset];
   }
+
 });
