@@ -11,7 +11,7 @@ export class PointerSelector {
   _pointerSelectorClassName = "phlffobkmklt";
   _pointerSelector: HTMLElement | undefined;
   _latestCoordinates: { x: number; y: number } = { x: 0, y: 0 };
-  _debounceTimer: string | number | NodeJS.Timeout | undefined;
+  _debounceTimer: string | number  | undefined;
   private readonly _hoverHandler: ((e: HTMLElement) => void) | undefined;
   private readonly _clickHandler: ((e: HTMLElement) => boolean) | undefined;
 
@@ -22,7 +22,7 @@ export class PointerSelector {
     if (!this.createPointerSelector(this._clickHandler)) throw new Error("Failed to create pointer selector, already exists");
 
     document.addEventListener("mouseover", this.mouseoverHandler, {
-      passive: true,
+      passive: false,
       once: false,
       capture: false,
     });
@@ -108,6 +108,8 @@ export class PointerSelector {
     this._pointerSelector.style.outline = "2px solid orange";
     this._pointerSelector.style.outlineOffset = "2px";
     this._pointerSelector.style.opacity = "0.5";
+    this._pointerSelector.style.margin = "0";
+    this._pointerSelector.style.padding = "0";
     if (typeof clickHandler === "function") {
       this._pointerSelector.style.pointerEvents = "auto";
       this._pointerSelector.addEventListener("click", this.clickHandlerResolver, {

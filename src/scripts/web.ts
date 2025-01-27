@@ -1,7 +1,10 @@
 // @ts-expect-error TS2307
+
 import fcs from "marklet:../marklets/fcs.ts";
 // @ts-expect-error TS2307
 import Axify from "marklet:../marklets/Axify.ts";
+// @ts-expect-error TS2307
+import AxifyTargeted from "marklet:../marklets/AxifyTargeted.ts";
 // @ts-expect-error TS2307
 import ForceFocusOutline from "marklet:../marklets/ForceFocusOutline.ts";
 // @ts-expect-error TS2307
@@ -24,8 +27,10 @@ import Pathify from "marklet:../marklets/Pathify.ts";
 import MakeSkele from "marklet:../marklets/MakeSkele.ts";
 // @ts-expect-error TS2307
 import ShowImageAlt from "marklet:../marklets/ShowImageAlt";
-
+// @ts-expect-error TS2307
 import DupeId from "marklet:../marklets/dupeIdCheck.ts";
+// @ts-expect-error TS2307
+import TextObserver from "marklet:../marklets/TextObserver.ts";
 import "./style.css";
 
 // const asdf = "asdf"
@@ -48,6 +53,8 @@ const makeLink = (x: string, name: string): void => {
 makeLink(ShowImageAlt, "ShowImageAlt");
 makeLink(fcs, "fcs");
 makeLink(Axify, "Axify");
+makeLink(AxifyTargeted, "AxifyTargeted");
+
 makeLink(ForceFocusOutline, "ForceFocusOutline");
 makeLink(TextSpacing, "TextSpacing");
 makeLink(AriaLiveObserver, "AriaLiveObserver");
@@ -59,6 +66,7 @@ makeLink(ImageChecker, "ImageChecker");
 makeLink(Pathify, "Pathify");
 makeLink(MakeSkele, "MakeSkele");
 makeLink(DupeId, "DupeId");
+makeLink(TextObserver, "TextObserver");
 // END: add links
 
 // random text generator
