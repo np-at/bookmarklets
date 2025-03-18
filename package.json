@@ -19,10 +19,10 @@
   "license": "ISC",
   "dependencies": {
     "aria-api": "^0.8.0",
-    "axe-core": "^4.10.2",
+    "axe-core": "^4.10.3",
     "commander": "11.1.0",
-    "parcel": "^2.13.0",
-    "terser": "^5.36.0"
+    "parcel": "^2.14.0",
+    "terser": "^5.39.0"
   },
   "overrides": {
     "@parcel/optimizer-htmlnano": {
@@ -30,25 +30,24 @@
     }
   },
   "optionalDependencies": {
-    "@parcel/watcher-linux-x64-glibc": "^2.5.0",
+    "@parcel/watcher-linux-x64-glibc": "^2.5.1",
     "@swc/core-linux": "^1.2.42"
   },
   "devDependencies": {
-
     "@eslint/js": "^9.22.0",
     "@html-eslint/eslint-plugin": "^0.36.0",
     "@html-eslint/parser": "^0.36.0",
-    "@parcel/plugin": "^2.13.0",
-    "@parcel/resolver-default": "^2.13.0",
+    "@parcel/plugin": "^2.14.0",
+    "@parcel/resolver-default": "^2.14.0",
     "@parcel/source-map": "^2.1.1",
-    "@parcel/transformer-inline-string": "^2.13.0",
-    "@playwright/test": "^1.48.2",
+    "@parcel/transformer-inline-string": "^2.14.0",
+    "@playwright/test": "^1.51.1",
     "@puresamari/ts-bundler": "^0.3.5",
     "@trunkio/launcher": "^1.3.4",
     "@types/inquirer": "^9.0.7",
     "@types/jest": "^29.5.14",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.17.6",
+    "@types/node": "^22.13.10",
     "@typescript-eslint/parser": "^8.26.1",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.1",
@@ -60,12 +59,12 @@
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^23.2.0",
     "path-browserify": "^1.0.1",
-    "prettier": "^3.3.3",
+    "prettier": "^3.5.3",
     "process": "^0.11.10",
-    "ts-jest": "^29.2.5",
+    "ts-jest": "^29.2.6",
     "ts-node": "^10.9.2",
-    "tsx": "^4.19.2",
-    "typescript": "5.6.3",
+    "tsx": "^4.19.3",
+    "typescript": "5.8.2",
     "typescript-eslint": "^8.26.1"
   }
 }
