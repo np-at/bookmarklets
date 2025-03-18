@@ -23,15 +23,15 @@ export function levenshtein(s: string, t: string): number {
     return n + m;
   }
   let x = 0;
-  let y;
-  let a;
-  let b;
-  let c;
-  let d;
-  let g;
-  let h;
-  let k;
-  const p = new Array(n);
+  let y:number;
+  let a:number;
+  let b:number;
+  let c:number;
+  let d:number;
+  let g:number;
+  let h:number;
+  let k:number;
+  const p = new Array<number>(n);
   for (y = 0; y < n; ) {
     p[y] = ++y;
   }
@@ -99,6 +99,7 @@ export function levenshtein(s: string, t: string): number {
     h = d;
   }
 
+  // @ts-expect-error known init by this point
   return h;
 }
 

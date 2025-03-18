@@ -1,14 +1,5 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
-// alt="img"
-// noinspection CssInvalidPropertyValue
-
 // ImageCheck
 
-import { containsAny } from "../utils/stringUtils";
-
-// function containsAny<T>(collection: T[], ...items: T[]): boolean {
-//     return items.some((i) => collection.includes(i));
-// }
 
 const invalidAltRegexes = [
   /^img.*/,
