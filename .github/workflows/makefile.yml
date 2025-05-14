@@ -2,7 +2,7 @@ name: Build & Deploy
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
   #  pull_request:
   #    branches: [ "main" ]
   workflow_dispatch:
@@ -16,29 +16,33 @@ permissions:
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
     environment:
       name: github-pages
-
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: '1'
+          repository: '${{ github.repository }}'
 
       # - name: configure
       #   run: ./configure
 
       #    - name: Install dependencies
       #      run: make install
-      - name: Use Node.js 20.x
+      - name: Use Node.js 22.x
         uses: actions/setup-node@v3
         with:
-          node-version: 20.x
+          node-version: 22.x
           cache: "npm"
+          always-auth: 'false'
+          check-latest: 'false'
       - run: npm ci
       - run: npm run build
       # - name: Run check
@@ -50,12 +54,18 @@ jobs:
       #      run: make build
       # pages
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v5
+        with:
+          token: '${{ github.token }}'
+          enablement: 'false'
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           # Upload build artifacts
           path: "_site/"
+          retention-days: '1'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
+        with:
+          token: '${{ github.token }}'
