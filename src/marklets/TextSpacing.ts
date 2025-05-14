@@ -1,7 +1,6 @@
 // stolen from https://codepen.io/stevef/pen/YLMqbo
 
-// eslint-disable-next-line n/no-exports-assign
-exports = {};
+
 function TextSpacing(): void {
   const d = document;
   const id = "phltsbkmklt";

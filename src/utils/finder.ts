@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing,eqeqeq */
 // License: MIT
 // Author: Anton Medvedev <anton@medv.io>
 // Source: https://github.com/antonmedv/finder
@@ -36,10 +35,10 @@ export function finder(input: Element, options?: Partial<FinderOptions>): string
     }
     const defaults: FinderOptions = {
       root: document.body,
-      idName: (name: string) => true,
-      className: (name: string) => true,
-      tagName: (name: string) => true,
-      attr: (name: string, value: string) => false,
+      idName: () => true,
+      className: () => true,
+      tagName: () => true,
+      attr: () => false,
       seedMinLength: 1,
       optimizedMinLength: 2,
       threshold: 1000,
@@ -75,7 +74,6 @@ export function finder(input: Element, options?: Partial<FinderOptions>): string
     return rootNode;
   }
 
-  // eslint-disable-next-line complexity
   function bottomUpSearch(input: Element, limit: "all" | "two" | "one" | "none", fallback?: () => Path | null): Path | null {
     let path: Path | null = null;
     const stack: Knot[][] = [];
@@ -101,7 +99,6 @@ export function finder(input: Element, options?: Partial<FinderOptions>): string
         if (nth && dispensableNth(node)) {
           level = [nthChild(node, nth)];
         }
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       } else if (limit == "none") {
         level = [any()];
         if (nth) {

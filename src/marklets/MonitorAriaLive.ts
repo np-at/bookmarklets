@@ -132,6 +132,7 @@ closeButton.addEventListener(
   },
   { once: true },
 );
+
 function closeOnEscape(e: KeyboardEvent): void {
   if (e.key === "Escape") {
     console.log("escape pressed");
@@ -225,6 +226,7 @@ function drawHighlightOverlay(element: HTMLElement): void {
     overlay.remove();
   }, 2000);
 }
+
 const mutationObserverCallback: MutationCallback = (mutations, _observer) => {
   // if displayContainer is removed, disconnect observer
   if (!displayContainer.isConnected) {
@@ -254,7 +256,7 @@ const mutationObserverCallback: MutationCallback = (mutations, _observer) => {
         } else if (x.nodeType === Node.ELEMENT_NODE) {
           console.debug("element node added: ", x);
           const liveregions = Array.from((x as HTMLElement).querySelectorAll("[aria-live]"));
-          liveregions && console.debug("found regions: ", liveregions);
+          if (liveregions) console.debug("found regions: ", liveregions);
           liveregions.forEach((x) => {
             if (monitoredNodes.includes(x)) {
               console.log("node already present", x);
@@ -271,9 +273,9 @@ const mutationObserverCallback: MutationCallback = (mutations, _observer) => {
           console.debug("text node removed: ", x.textContent);
         } else if (x.nodeType === Node.ELEMENT_NODE) {
           console.debug("element node removed: ", x);
-          const liveregions = Array.from((x as HTMLElement).querySelectorAll("[aria-live]"));
-          liveregions && console.debug("found regions: ", liveregions);
-          liveregions.forEach((x) => {
+          const liveRegions = Array.from((x as HTMLElement).querySelectorAll("[aria-live]"));
+          if (liveRegions) console.debug("found regions: ", liveRegions);
+          liveRegions.forEach((x) => {
             if (monitoredNodes.includes(x)) {
               console.log("node already present", x);
               return;
@@ -317,7 +319,7 @@ const monitoredNodes: Element[] = [];
 // apply callback to shadow roots
 function applyToShadowRoots(startNode: Element, callback: (root: ShadowRoot) => void): void {
   startNode.querySelectorAll("*").forEach((x) => {
-    x.shadowRoot && callback(x.shadowRoot);
+    if (x.shadowRoot) callback(x.shadowRoot);
   });
 }
 
@@ -334,8 +336,7 @@ function MonitorAriaLive(): void {
   applyToShadowRoots(document.body, (root) => {
     liveregions.push(...Array.from(root.querySelectorAll("[aria-live]")));
   });
-
-  liveregions && console.debug("found regions: ", liveregions);
+  if (liveregions) console.debug("found regions: ", liveregions);
   liveregions.forEach((x) => {
     if (monitoredNodes.includes(x)) {
       console.log("node already present", x);

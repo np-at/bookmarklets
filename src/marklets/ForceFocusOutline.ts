@@ -1,8 +1,4 @@
 import { applyToShadows } from "../utils/applyToShadows";
-
-// eslint-disable-next-line n/no-exports-assign
-
-
 function ForceFocusOutline(): void {
   const d = document;
   const id = "phlffobkmklt";

@@ -77,14 +77,23 @@ function addDisplayItem(text: string, style: DrawStyleProps, scrollTo?: string):
     };
   display.appendChild(display.querySelector("ul") as HTMLUListElement);
 }
-function _main(reset: boolean = false): void {
+
+type AltTextErr = {
+  msg:string;
+  el: Element;
+}
+/**
+ * Testing comment
+ * @param reset
+ */
+export default function _main(reset: boolean = false): void {
   if (reset) {
     _reset();
   }
 
   ensureBoundingStyleAvailable();
 
-  const errors: string[] = [];
+  const errors: AltTextErr[] = [];
   Array.from(document.querySelectorAll("img, svg, [role=img]")).forEach((el) => {
     let overlayText: string;
 
@@ -111,10 +120,10 @@ function _main(reset: boolean = false): void {
     }
     if (alt && ATName) {
       if (alt !== ATName) {
-        errors.push(`alt text "${alt}" does not match accessible name "${ATName}" for `, el.innerHTML);
+        errors.push({msg:`alt text "${alt}" does not match accessible name "${ATName}" for `,el});
         // console.warn(`alt text "${alt}" does not match accessible name "${ATName}" for `, el);
         style.borderColor = "goldenrod";
-        overlayText += ` (WARN: accessible name does not match alt text\n Accessible Name: ${ATName})a;lsdkjf;aslkjdf;lasdkjf;laskdjf;laskdjf;laskdjf;laskdjf;lasdkjf;alsdkjf;lasdkjf;alsdkjf;alsdkjf;asldkfja;sasdlkfjasldkfj`;
+        overlayText = `WARN: accessible name does not match alt text\n Alt: ${alt}\n Accessible Name: ${ATName}`;
       }
     }
     const { x, y } = el.getBoundingClientRect();

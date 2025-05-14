@@ -1,3 +1,27 @@
-* {
-  display: block;
+:root {
+    --color-primary: black;
+    --background-color: #fff;
+    --link-color: blue;
+    @media (prefers-color-scheme: dark) {
+        --color-primary: #fff;
+        --background-color: #2a2828;
+        --link-color: #3396ed;
+    }
+}
+a {
+    color: var(--link-color)
+}
+body {
+    color: var(--color-primary);
+    background-color: var(--background-color);
+}
+
+
+
+
+.row {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    display:block;
+    width: 100%;
 }

@@ -1,24 +1,28 @@
 import tsEslint from "typescript-eslint";
-import tsParser from "@typescript-eslint/parser";
 import htmlEslint from "@html-eslint/eslint-plugin";
 import parser from "@html-eslint/parser";
 
 import { default as pw_config } from "eslint-plugin-playwright";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
 import eslint from "@eslint/js";
 
 export default tsEslint.config(
   eslint.configs.recommended,
   tsEslint.configs.recommendedTypeChecked,
   {
+    files: ["**/*.ts", "**/*.mjs"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": "warn",
+    },
+  },
+  {
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
 
       parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.spec.json", "./tsconfig.web.json"]
-      }
-    }
+        project: ["./tsconfig.node.json", "./tsconfig.spec.json", "./tsconfig.web.json"],
+      },
+    },
   },
   // eslintConfigPrettier,
   // {
@@ -70,7 +74,7 @@ export default tsEslint.config(
   // },
   {
     files: ["**/*.test.ts"],
-    ...pw_config.configs["flat/recommended"]
+    ...pw_config.configs["flat/recommended"],
   },
   {
     ...htmlEslint.configs["flat/recommended"],
@@ -80,11 +84,11 @@ export default tsEslint.config(
       parserOptions: {
         project: tsEslint.parser,
       },
-      parser: parser
+      parser: parser,
     },
-    extends: [tsEslint.configs.disableTypeChecked]
+    extends: [tsEslint.configs.disableTypeChecked],
   },
   {
-    ignores: ["node_modules", "dist", "_site", "test-results", ".tmp", ".parcel-cache/", ".vscode/", ".idea/"]
-  }
+    ignores: ["node_modules", "dist", "_site", "test-results", ".tmp", ".parcel-cache/", ".vscode/", ".idea/"],
+  },
 );

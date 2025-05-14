@@ -1,4 +1,5 @@
-import { test, expect } from "@playwright/test";
+/* eslint-disable playwright/no-wait-for-selector */
+import { expect, test } from "@playwright/test";
 
 // testing to make sure that parcel is able to swap out the nodejs:fs module with a browser compatible one
 // it fails sometimes (not sure why)
@@ -15,7 +16,6 @@ test("all links have href", async ({ page }) => {
   await page.waitForSelector("a");
   const links = page.locator("a");
   for (const link of await links.all()) {
-    const hrefVal = await link.getAttribute("href");
-    expect(hrefVal).toBeTruthy();
+    await expect(link).toHaveAttribute("href");
   }
 });

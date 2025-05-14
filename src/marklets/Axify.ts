@@ -1,6 +1,9 @@
 import { run } from "axe-core";
 
-
+/**
+ * Runs AXE core on page
+ * outputs results to console
+ */
 run(
   document,
   {

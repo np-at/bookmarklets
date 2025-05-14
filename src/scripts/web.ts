@@ -1,37 +1,23 @@
-// @ts-expect-error TS2307
 
 import fcs from "marklet:../marklets/fcs.ts";
-// @ts-expect-error TS2307
+
 import Axify from "marklet:../marklets/Axify.ts";
-// @ts-expect-error TS2307
 import AxifyTargeted from "marklet:../marklets/AxifyTargeted.ts";
-// @ts-expect-error TS2307
 import ForceFocusOutline from "marklet:../marklets/ForceFocusOutline.ts";
-// @ts-expect-error TS2307
 import TextSpacing from "marklet:../marklets/TextSpacing.ts";
-// @ts-expect-error TS2307
 import AriaLiveObserver from "marklet:../marklets/MonitorAriaLive.ts";
-// @ts-expect-error TS2307
 import ShowHeadings from "marklet:../marklets/showHeadings.ts";
-// @ts-expect-error TS2307
 import FindDuplicateIds from "marklet:../marklets/FindDuplicateIds.ts";
-// @ts-expect-error TS2307
 import HoverTest from "marklet:../marklets/HoverTest.ts";
-// @ts-expect-error TS2307
 import IdentifyExplicitNames from "marklet:../marklets/IdentifyExplicitNames.ts";
-// @ts-expect-error TS2307
 import ImageChecker from "marklet:../marklets/ImageCheck.ts";
-// @ts-expect-error TS2307
 import Pathify from "marklet:../marklets/Pathify.ts";
-// @ts-expect-error TS2307
 import MakeSkele from "marklet:../marklets/MakeSkele.ts";
-// @ts-expect-error TS2307
+
 import ShowImageAlt from "marklet:../marklets/ShowImageAlt";
-// @ts-expect-error TS2307
 import DupeId from "marklet:../marklets/dupeIdCheck.ts";
-// @ts-expect-error TS2307
 import TextObserver from "marklet:../marklets/TextObserver.ts";
-import "./style.css";
+
 
 // const asdf = "asdf"
 // // END: import scripts
@@ -40,11 +26,14 @@ if (!root) {
   throw new Error("root element not found");
 }
 const makeLink = (x: string, name: string): void => {
+  const rowDiv = document.createElement('div')
+  rowDiv.classList.add('row')
   const anchorElement = document.createElement("a");
   anchorElement.href = x;
   anchorElement.innerText = name;
   anchorElement.id = "asdfas"
-  root.appendChild(anchorElement);
+  rowDiv.appendChild(anchorElement);
+  root.appendChild(rowDiv)
 
 };
 

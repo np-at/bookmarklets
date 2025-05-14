@@ -3,19 +3,18 @@ import { minify as terserMinify } from "terser";
 import * as fs from "fs/promises";
 import { TypescriptBundler } from "@puresamari/ts-bundler";
 
-import { Command } from "commander";
+import { Command } from "@commander-js/extra-typings";
 import { glob } from "glob";
 import { join, basename } from "node:path";
 const repoRoot = join(__dirname, "..", "..");
-const program = new Command();
-program.version("0.0.1");
+const program = new Command().version("0.0.1")
 // program.option("-d, --debug", "debug mode",undefined, false);
-program.option("-o, --output <file>", "output file");
-program.option("-i, --input <file>", "input file");
-program.option("--no-urlencode", "disable urlencoding of outputted js");
-program.option("--no-minify", "disable minification");
-program.allowUnknownOption(false).allowExcessArguments(false);
-program.parse(argv);
+.requiredOption("-o, --output <file>", "output file")
+.requiredOption("-i, --input <file>", "input file")
+.option("--no-urlencode", "disable urlencoding of outputted js")
+.option("--no-minify", "disable minification")
+.allowUnknownOption(false).allowExcessArguments(false)
+.parse(argv)
 const { output, input, urlencode, minify } = program.opts();
 
 const inputFile: string = input;
@@ -124,7 +123,9 @@ const formatAsBookmarklet: (code: string) => string = (code: string) =>
     const outFile = outputFile ?? join(repoRoot, "dist", basename(input, ".ts") + ".js");
 
     console.log("writing to: ", outFile);
-    codeOutput && (await fs.writeFile(outFile, urlencode ? formatAsBookmarklet(codeOutput) : codeOutput));
+    if (codeOutput) {
+      await fs.writeFile(outFile, urlencode ? formatAsBookmarklet(codeOutput) : codeOutput);
+    }
   }
 })().then(
   (_) => {

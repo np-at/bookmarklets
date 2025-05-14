@@ -6,10 +6,11 @@
     "types": ["node"],
     "lib": ["ES2022"],
     "noEmit": false,
-    "checkJs": true
+    "checkJs": true,
+    "strict": true
   },
-  "files": ["./playwright.config.ts", "./transformer_scr.mjs"],
+  "files": ["./playwright.config.ts", "./transformer_scr.mjs", "./src/scripts/i_txfm.ts", "jest.config.js"],
   "extends": ["./tsconfig.base.json"],
-  "include": ["src/scripts/**/*.ts", "aria-api.d.ts","eslint.config.mjs"],
-  "exclude": ["node_modules", "dist","src/scripts/web.ts"]
+  "include": ["./src/scripts/**/*.ts", "**/*.d.ts","eslint.config.mjs"],
+  "exclude": ["node_modules/", "dist/","src/scripts/web.ts"]
 }

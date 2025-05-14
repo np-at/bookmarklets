@@ -99,7 +99,7 @@ iframe.onload = function () {
     const target = doc.querySelector(".result");
     if (target == null) throw new Error("target null");
     if (checkbox != null) {
-      const check = function (e?: Event | undefined): void {
+      const check = function (e?: Event  ): void {
         if (checkbox.checked) {
           target.classList.add(className);
         } else {
@@ -256,10 +256,9 @@ function isVisuallyHidden(el: Element): true | undefined {
 
 function highlightElement(el: HTMLElement, disableAutoScroll: boolean | undefined): void {
   if (!disableAutoScroll) {
-    // @ts-expect-error ???
-    if (el.scrollIntoViewIfNeeded) {
-      // @ts-expect-error ???
-      el.scrollIntoViewIfNeeded();
+    if ("scrollIntoViewIfNeeded" in el) {
+      /** @see https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoViewIfNeeded */
+      (el.scrollIntoViewIfNeeded as (this:HTMLElement, centerIfNeeded?: boolean)=>void)();
     } else {
       el.scrollIntoView();
     }

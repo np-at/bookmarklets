@@ -40,7 +40,7 @@ function IdentifyExplicitNames(target: HTMLElement): boolean {
   console.log("name: ", getName(target));
   const hasAriaLabel: LabelledElement[] = Array.from(target.querySelectorAll("[aria-label]")).map((x) => ({
     // we know this is defined because we're querying for it
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+     
     name: x.getAttribute("aria-label")!,
     labellingMethod: Labelling.ariaLabel,
     target: x as HTMLElement,
