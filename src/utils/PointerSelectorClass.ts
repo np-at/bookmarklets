@@ -11,7 +11,7 @@ export class PointerSelector {
   _pointerSelectorClassName = "phlffobkmklt";
   _pointerSelector: HTMLElement | undefined;
   _latestCoordinates: { x: number; y: number } = { x: 0, y: 0 };
-  _debounceTimer: string | number  | undefined;
+  _debounceTimer: number  | undefined = undefined;
   private readonly _hoverHandler: ((e: HTMLElement) => void) | undefined;
   private readonly _clickHandler: ((e: HTMLElement) => boolean) | undefined;
 
@@ -150,7 +150,7 @@ export class PointerSelector {
     if (e.type === "click") {
       this.forwardEvent(e);
     } else {
-      this._debounceTimer = setTimeout(() => {
+      this._debounceTimer = window.setTimeout(() => {
         this.forwardEvent(e);
       }, 100);
     }

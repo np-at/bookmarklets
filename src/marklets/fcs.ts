@@ -38,9 +38,9 @@ function addBoundingStyle(): void {
   }
 }
 
-function handleFocusChange(_event: FocusEvent): void {
+function handleFocusChange(): void {
   clearTimeout(selectionChangeTimer);
-  selectionChangeTimer = setTimeout(drawFocusBoxes, 100);
+  selectionChangeTimer = window.setTimeout(drawFocusBoxes, 100);
   const rect = document.activeElement?.getBoundingClientRect();
   if (!rect) throw new Error("Rect not defined");
   if (rect.top && rect.left) {
@@ -54,9 +54,9 @@ function handleFocusChange(_event: FocusEvent): void {
   drawFocusTraceArrows();
 }
 
-function redrawSelectionBoxes(_event: Event | FocusEvent): void {
+function redrawSelectionBoxes(): void {
   clearTimeout(redrawTimer);
-  redrawTimer = setTimeout(drawFocusBoxes, 300);
+  redrawTimer = window.setTimeout(drawFocusBoxes, 300);
 }
 
 function clearCurrentSelectionBoxes(): void {

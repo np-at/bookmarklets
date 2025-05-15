@@ -1,3 +1,4 @@
+// @ts-check
 import tsEslint from "typescript-eslint";
 import htmlEslint from "@html-eslint/eslint-plugin";
 import parser from "@html-eslint/parser";
@@ -82,7 +83,7 @@ export default tsEslint.config(
 
     languageOptions: {
       parserOptions: {
-        project: tsEslint.parser,
+        project: true,
       },
       parser: parser,
     },

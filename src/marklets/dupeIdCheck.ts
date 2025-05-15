@@ -3,11 +3,13 @@ import { drawBox } from "../utils/drawUtils";
 
 const dupBoxId = "dupIdBox";
 
-function makeDisplay(): HTMLDialogElement {
+function makeDisplay(): HTMLElement {
   const existingDisplay = document.getElementById("a11y-bookmarklet") as HTMLDialogElement | null;
   if (existingDisplay) {
     existingDisplay.show();
-    const wrapper = existingDisplay.querySelector(".content-wrapper");
+    const wrapper: HTMLDivElement | null = existingDisplay.querySelector("div.content-wrapper");
+    if (!wrapper)
+      throw new Error("existing display's content wrapper not found")
     wrapper.innerHTML = "";
     return wrapper;
   }
@@ -45,7 +47,7 @@ function cleanUp(ds?: HTMLDialogElement): void {
   ds?.remove();
 }
 
-function makeCloseButton(display: HTMLDialogElement): HtmlButtonElement {
+function makeCloseButton(display: HTMLDialogElement): HTMLButtonElement {
   const closeButton = document.createElement("button");
   closeButton.innerText = "Close";
   closeButton.style.position = "absolute";
@@ -60,8 +62,8 @@ function makeCloseButton(display: HTMLDialogElement): HtmlButtonElement {
 }
 
 
-function findDuplicates(): Array<[string, HTMLElement[]]> {
-  const ids = new Map<string, HTMLElement[]>();
+function findDuplicates(): Array<[string, Element[]]> {
+  const ids = new Map<string, Element[]>();
   const all = document.querySelectorAll("[id]");
   all.forEach((x) => {
     if (x.id && x.id !== dupBoxId) {
@@ -76,10 +78,10 @@ function findDuplicates(): Array<[string, HTMLElement[]]> {
   // return new Map(Array.from(ids.entries()).filter((x) => x[1].length > 1));
 }
 
-function collectDuplicates(ds: HTMLDialogElement): void {
+function collectDuplicates(ds: HTMLElement): void {
 
   const duplicates = findDuplicates();
-  if (duplicates.size === 0) {
+  if (duplicates.length === 0) {
     ds.innerText = "No duplicate IDs found";
   } else {
     ds.innerText = "Duplicate IDs found:";

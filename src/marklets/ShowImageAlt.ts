@@ -1,4 +1,6 @@
 // Path: src/marklets/ShowImageAlt.ts
+// noinspection JSUnusedLocalSymbols
+
 import { getName, getRole } from "aria-api";
 import { drawBox, type DrawStyleProps, ensureBoundingStyleAvailable } from "../utils/drawUtils";
 import { makeDraggableDisplay } from "../utils/makeDraggableOverlay";

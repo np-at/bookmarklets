@@ -128,7 +128,7 @@ const formatAsBookmarklet: (code: string) => string = (code: string) =>
     }
   }
 })().then(
-  (_) => {
+  () => {
     // console.log(formatAsBookmarklet(value))
     // console.log(value)
   },

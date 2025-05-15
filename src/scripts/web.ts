@@ -59,6 +59,7 @@ makeLink(TextObserver, "TextObserver");
 // END: add links
 
 // random text generator
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function generateRandomText(): string {
   const randomText: string[] = [];
   const randomLength = Math.floor(Math.random() * 10) + 1;
@@ -68,17 +69,6 @@ function generateRandomText(): string {
   return randomText.join(" ");
 }
 
-//
-// setInterval(() => {
-//   try {
-//     (
-//       document.getElementById("live-region") as HTMLSpanElement
-//     ).innerText = `poop ${generateRandomText()}`;
-//   } catch (e) {
-//     console.error(e);
-//     clearInterval(this);
-//   }
-// }, 6000);
 
 // TODO: finish this
 document.getElementById("live-region") as HTMLSpanElement;

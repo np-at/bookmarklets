@@ -1,3 +1,4 @@
+// @ts-check
 import { Transformer } from "@parcel/plugin";
 import { TypescriptBundler } from "@puresamari/ts-bundler";
 import { minify as terserMinify } from "terser";
@@ -10,31 +11,32 @@ import console from "node:console";
  *
 
  * @param {string} absolutePath
- * @param {string} base
+ * @param {string | undefined} base
  * @return {ts.TranspileOutput}
  */
 function extractEntryPoint(absolutePath, base) {
   try {
     const tsCode = fs.readFileSync(absolutePath, "utf-8");
 
+
     const prog = ts.createProgram([absolutePath], {});
     // const diag = prog.getSyntacticDiagnostics()
 
-    const sourceFile = prog.getSourceFile(absolutePath);
+    const sourceFile= prog.getSourceFile(absolutePath);
     // console.dir(sourceFile)
-    const funcStmts = sourceFile.statements.filter((x) => ts.isFunctionLike(x));
+    const funcStmts = sourceFile?.statements.filter((x) => ts.isFunctionLike(x));
     console.log(funcStmts);
-    /** @type ts.SignatureDeclaration */
+    // /** @type ts.SignatureDeclaration */
 
-    /** @type ts.TranspileOutput */
-    // const jsCode = ts.transpileModule(tsCode, {
-    //   compilerOptions: {
-    //     baseUrl: base,
-    //     removeComments: true,
-    //   },
-    // });
-    //
-    // return jsCode;
+    /** @type import("typescript").TranspileOutput */
+    const jsCode = ts.transpileModule(tsCode, {
+      compilerOptions: {
+        baseUrl: base,
+        removeComments: true,
+      },
+    });
+
+    return jsCode;
   } catch (e) {
     console.log(absolutePath);
     throw e;

@@ -1,7 +1,6 @@
- 
+
 "use strict";
 
-import { inherits } from "util";
 
 let useIDRefs = true;
 let hidePanels = false;
@@ -295,7 +294,7 @@ function getXpathAndSource(): void {
     return snippet;
   }
 
-  function getNodeDetails(el: Element, e: Event): void {
+  function getNodeDetails(el: Element): void {
     if (!outputPanelForARCAdded) {
       addOutputPanelForARC();
     }
@@ -367,10 +366,10 @@ function getXpathAndSource(): void {
     el.addEventListener("mouseover", (e) => {
       indicateCurrentEl(el, e);
     });
-    el.addEventListener("mouseout", (e) => {
+    el.addEventListener("mouseout", () => {
       unHighlightAll();
     });
-    el.addEventListener("blur", (e) => {
+    el.addEventListener("blur", () => {
       unHighlightAll();
     });
   });

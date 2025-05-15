@@ -59,7 +59,7 @@ const defaultStyle: DrawStyleProps = {
  * @param {boolean} skipRemoval - If true, existing elements with the same ID will not be removed.
  */
 
-export function drawBox(element: HTMLElement, utilityName: string, content?: string, style?: DrawStyleProps, id?: string, skipRemoval = false): void {
+export function drawBox(element: Element, utilityName: string, content?: string, style?: DrawStyleProps, id?: string, skipRemoval = false): void {
   const blockDiv = document.createElement("div");
 
   if (id) {
