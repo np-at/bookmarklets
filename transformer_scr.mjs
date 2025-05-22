@@ -7,6 +7,7 @@ import fs from "fs";
 import ts from "typescript";
 import console from "node:console";
 
+
 /**
  *
 
@@ -25,7 +26,7 @@ function extractEntryPoint(absolutePath, base) {
     const sourceFile= prog.getSourceFile(absolutePath);
     // console.dir(sourceFile)
     const funcStmts = sourceFile?.statements.filter((x) => ts.isFunctionLike(x));
-    console.log(funcStmts);
+    // console.log(funcStmts);
     // /** @type ts.SignatureDeclaration */
 
     /** @type import("typescript").TranspileOutput */
@@ -89,7 +90,7 @@ async function compile(inputFile, minify, logger) {
       compress: {
         dead_code: true,
         defaults: true,
-        ecma: 2020,
+        ecma: 2022,
         keep_fnames: false,
         keep_fargs: false,
         keep_classnames: false,
@@ -109,6 +110,11 @@ async function compile(inputFile, minify, logger) {
         properties: false,
         module: true,
       },
+      format: {
+        comments: false,
+        ecma: 2022
+      },
+
       // toplevel: true,
       sourceMap: {
         asObject: false,

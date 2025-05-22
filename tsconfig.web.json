@@ -1,13 +1,16 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "ES2022",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "target": "ES2022",
+    "target": "ESNext",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
-    // "downlevelIteration": false,
-    // "strict": true
+    "allowSyntheticDefaultImports": true,
+     "downlevelIteration": false,
+    "allowUnreachableCode": false,
+    "strict": true,
+    "importsNotUsedAsValues": "remove",
+    "verbatimModuleSyntax": true
   },
   //  "exclude": [
   //    "./**/*.spec.ts",

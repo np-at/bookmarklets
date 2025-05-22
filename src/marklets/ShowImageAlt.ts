@@ -6,8 +6,8 @@ import { drawBox, type DrawStyleProps, ensureBoundingStyleAvailable } from "../u
 import { makeDraggableDisplay } from "../utils/makeDraggableOverlay";
 import { finder } from "../utils/finder";
 
-const display_div_id = "show-image-alt-display";
-const rel_showImageAlt = "aria-show-image-alt";
+const display_div_id = "show-image-alt-display" as const;
+const rel_showImageAlt = "aria-show-image-alt" as const;
 let _displayDiv: HTMLDivElement | undefined;
 function displayDiv(): HTMLDivElement {
   if (!_displayDiv) {

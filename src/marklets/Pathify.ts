@@ -210,7 +210,7 @@ function getXpathAndSource(): void {
       outputPanelForARC_textarea_label.addEventListener("click", (e) => {
         e.stopPropagation();
       });
-      outputPanelForARC_closeButton.addEventListener("click", (e) => {
+      outputPanelForARC_closeButton.addEventListener("click", () => {
         removeAllTheThings();
       });
     }
@@ -290,8 +290,7 @@ function getXpathAndSource(): void {
   function getNodeHTML(el: Element): string {
     const wrap = document.createElement("span");
     wrap.appendChild(el.cloneNode(true));
-    const snippet: string = wrap.innerHTML;
-    return snippet;
+    return wrap.innerHTML;
   }
 
   function getNodeDetails(el: Element): void {
@@ -356,7 +355,7 @@ function getXpathAndSource(): void {
       if (el.getAttribute("id") !== "allTargetsFileDownloadLinkReadable") {
         e.stopPropagation();
         e.preventDefault();
-        getNodeDetails(el, e);
+        getNodeDetails(el);
         infoPanel.innerHTML = "Values captured for " + getXpath(el);
       }
     });
